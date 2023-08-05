@@ -9,6 +9,5 @@ urlpatterns = [
     path('loginUser', views.loginUser, name='loginUser'),
     path('index', views.index, name='index'),
     path('api/get-quiz', views.get_quiz, name="get_quiz"),
-    # path('quiz/', views.quiz, name="quiz"),
-    path('quiz/', views.quiz, name='questions'),
+    path('quiz/', views.quiz, name='quiz'),
 ]
