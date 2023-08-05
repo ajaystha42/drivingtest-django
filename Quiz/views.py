@@ -49,10 +49,9 @@ def loginUser(request):
         })
 
 
-def logout(request):
-    print('inside logouttasdasdadasdasdnasdjkansdjkasndjkasndjasndjasndjkasndkjasndkj')
-    pass
-
-
 def index(request):
-    return render(request, 'index.html')
+    try:
+        user = request.COOKIES['user']
+        return render(request, 'index.html')
+    except KeyError:
+        return render(request, 'login.html')
