@@ -3,11 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
+<div class="container mt-5 pt-5">
+    <div class="col-md-6 mx-auto">
+        <form id="quizForm">
+            <div class="form-group">
+                <label>Question</label><br>
+                {% for que in questions %}
+                <br>{{que.question}}
+                <select name="answer">
+                    <br>
+                    {% for ans in que.answers %}
+                    <option value="{{question.question}}">{{ans.answer}}</option>
+                    <br>
+                    {% endfor %}
 
-{% for question in questions %}
-                 <option value="{{category.category_name}}">{{category.category_name}}</option>
-                 {% endfor %}
+                </select>
+
+                {% endfor %}
+            </div>
+            <button class="btn btn-danger mt-3" onclick="submitForm()">Submit</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

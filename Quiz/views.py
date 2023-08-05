@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import redirect, render
 from Quiz.models import User
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
@@ -60,9 +61,11 @@ def index(request):
     except KeyError:
         return render(request, 'login.html')
 
+
 def quiz(request):
     questions = get_quiz(request)
-
+    for que in questions:
+        print(que)
     return render(request, 'quiz.html', {'questions': questions})
 
 
@@ -88,7 +91,7 @@ def get_quiz(request):
             'data': data
         }
 
-        return JsonResponse(payload)
+        return random.sample(data, 5)
 
     except Exception as e:
         print(e)
