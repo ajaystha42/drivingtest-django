@@ -3,33 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
-
-</head>
-<body>
-<div class="container mt-5 pt-5">
-    <div class="col-md-6 mx-auto">
+  </head>
+  <body>
+    <div class="container mt-5 pt-5">
+      <div class="col-md-6 mx-auto">
         <form id="quizForm">
-            <div class="form-group">
-                <label>Question</label><br>
-                {% for que in questions %}
-                <br>{{que.question}}
-                <li>
-                  {% for ans in que.answers %}
-                    <ul>
-                        <input type="radio" id="{{ans.id}}" value="{{ans.id}}" name=""/>
-                        <label for="{{ans.id}}">
-                            {{ans.answer}}
-                        </label>
-                    </ul>
-                    <br>
-                    {% endfor %}
-                    <br>
-                </li>
-                {% endfor %}
-            </div>
-            <button class="btn btn-danger mt-3" onclick="submitForm()">Submit</button>
+          <div class="form-group">
+            <label>Question</label><br />
+            {% for que in questions %}
+            <br />{{que.question}}
+            <li>
+              {% for ans in que.answers %}
+              <ul>
+                <input
+                  type="radio"
+                  id="{{ans.id}}"
+                  value="{{ans.id}}"
+                  name=""
+                />
+                <label for="{{ans.id}}"> {{ans.answer}} </label>
+              </ul>
+              <br />
+              {% endfor %}
+              <br />
+            </li>
+            {% endfor %}
+          </div>
+          <button class="btn btn-danger mt-3" onclick="submitForm()">
+            Submit
+          </button>
         </form>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>
