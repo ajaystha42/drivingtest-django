@@ -12,8 +12,8 @@ def login(request):
         return render(request, 'login.html')
 
 
-def signup(request):
-    return render(request, 'signup.html')
+def register(request):
+    return render(request, 'register.html')
 
 
 def addUser(request):
@@ -28,7 +28,7 @@ def addUser(request):
             password=password)
         return redirect('/')
 
-    return render(request, 'signup.html', {
+    return render(request, 'register.html', {
         'error': "User already exists. Please choose other username.",
     })
 
