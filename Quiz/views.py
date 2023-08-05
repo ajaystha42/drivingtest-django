@@ -96,3 +96,4 @@ def get_quiz(request):
     except Exception as e:
         print(e)
     return HttpResponse("Something went wrong")
+
