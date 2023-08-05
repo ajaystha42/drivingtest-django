@@ -61,7 +61,9 @@ def index(request):
         return render(request, 'login.html')
 
 def quiz(request):
-    return render(request, 'quiz.html')
+    questions = get_quiz(request)
+
+    return render(request, 'quiz.html', {'questions': questions})
 
 
 def get_quiz(request):
