@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from Quiz.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
+from .models import *
 
 
 def login(request):
@@ -52,6 +53,41 @@ def loginUser(request):
 def index(request):
     try:
         user = request.COOKIES['user']
-        return render(request, 'index.html')
+        context = {'categories': Category.objects.all()}
+        if request.GET.get('category'):
+            return redirect(f"/quiz?category={request.GET.get('category')}")
+        return render(request, 'index.html', context)
     except KeyError:
         return render(request, 'login.html')
+
+def quiz(request):
+    return render(request, 'quiz.html')
+
+
+def get_quiz(request):
+    try:
+        question_objs = (Question.objects.all())
+
+        if request.GET.get('category'):
+            question_objs = question_objs.filter(category__category_name__icontains=request.GET.get('category'))
+
+        question_objs = list(question_objs)
+        data = []
+        random.shuffle(question_objs)
+        for question_obj in question_objs:
+            data.append({
+                "category": question_obj.category.category_name,
+                "question": question_obj.question,
+                "marks": question_obj.marks,
+                "answers": question_obj.get_answer()
+            })
+        payload = {
+            'status': True,
+            'data': data
+        }
+
+        return JsonResponse(payload)
+
+    except Exception as e:
+        print(e)
+    return HttpResponse("Something went wrong")
