@@ -1,5 +1,5 @@
 """
-WSGI config for DrivingQuiz project.
+WSGI config for DrivingTest project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DrivingQuiz.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DrivingTest.settings')
 
 application = get_wsgi_application()
