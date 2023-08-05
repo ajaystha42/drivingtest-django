@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <title>Quiz App</title>
+    <script>
+      function deleteCookie(name) {
+        document.cookie =
+          name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      }
+
+      function logout() {
+        deleteCookie("user");
+        window.location.href = "/";
+      }
+    </script>
+  </head>
+  <body>
+    This is main page
+    <div>
+      <br />
+      <button type="submit" onclick="logout()">Logout</button>
+    </div>
+  </body>
+</html>
