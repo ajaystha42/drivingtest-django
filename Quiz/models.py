@@ -16,25 +16,31 @@ class User(models.Model):
         db_table = 'users'
 
 
-class BaseModel(models.Model):
-    uid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now_add=True)
+# class models.Model(models.Model):
+#     uid = models.UUIDField(
+#         primary_key=True, default=uuid.uuid4, editable=False)
+#     created_at = models.DateField(auto_now_add=True)
+#     updated_at = models.DateField(auto_now_add=True)
 
-    class Meta:
-        abstract = True
+#     class Meta:
+#         abstract = True
 
 
 # Create your models here.
-class Category(BaseModel):
+class Category(models.Model):
+    id = models.AutoField(primary_key=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
     category_name = models.CharField(max_length=100)
 
     def __str__(self) -> str:
         return self.category_name
 
 
-class Question(BaseModel):
+class Question(models.Model):
+    id = models.AutoField(primary_key=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
     category = models.ForeignKey(
         Category, related_name='category', on_delete=models.CASCADE)
     question = models.CharField(max_length=100)
@@ -50,6 +56,7 @@ class Question(BaseModel):
         for answer_obj in answer_objs:
             data.append(
                 {
+                    'id': answer_obj.id,
                     'answer': answer_obj.answer,
                     'is_correct': answer_obj.is_correct
                 }
@@ -57,7 +64,10 @@ class Question(BaseModel):
         return data
 
 
-class Answer(BaseModel):
+class Answer(models.Model):
+    id = models.AutoField(primary_key=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
     question = models.ForeignKey(
         Question, related_name='question_answer', on_delete=models.CASCADE)
     answer = models.CharField(max_length=100)

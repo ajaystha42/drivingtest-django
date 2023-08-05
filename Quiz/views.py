@@ -81,6 +81,7 @@ def get_quiz(request):
         random.shuffle(question_objs)
         for question_obj in question_objs:
             data.append({
+                "id": question_obj.id,
                 "category": question_obj.category.category_name,
                 "question": question_obj.question,
                 "marks": question_obj.marks,
@@ -91,9 +92,8 @@ def get_quiz(request):
         #     'data': data
         # }
 
-        return random.sample(data, 5)
+        return random.sample(data, 3)
 
     except Exception as e:
         print(e)
     return HttpResponse("Something went wrong")
-
