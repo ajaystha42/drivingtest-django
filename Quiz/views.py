@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import redirect, render
 from Quiz.models import User
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
@@ -80,6 +81,7 @@ def get_quiz(request):
         random.shuffle(question_objs)
         for question_obj in question_objs:
             data.append({
+                "id": question_obj.id,
                 "category": question_obj.category.category_name,
                 "question": question_obj.question,
                 "marks": question_obj.marks,
@@ -90,7 +92,7 @@ def get_quiz(request):
         #     'data': data
         # }
 
-        return data
+        return random.sample(data, 3)
 
     except Exception as e:
         print(e)

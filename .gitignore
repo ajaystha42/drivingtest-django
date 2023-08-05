@@ -3,6 +3,8 @@ __pycache__/
 **/__pycache__/
 **/migrations/__pycache__/
 *.py[cod]
+db.sqlite3
+.idea
 
 # C extensions
 *.so
