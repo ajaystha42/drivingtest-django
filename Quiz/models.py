@@ -5,12 +5,13 @@ import uuid
 
 
 class User(models.Model):
-    user_id = models.CharField(max_length=100)
+    # id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
 
     def __str__(self) -> str:
-        return "%s - %s" % (self.user_id, self.name)
+        return "%s - %s - %s" % (self.id, self.username, self.name)
 
     class Meta:
         db_table = 'users'
@@ -28,7 +29,7 @@ class User(models.Model):
 
 # Create your models here.
 class Category(models.Model):
-    id = models.AutoField(primary_key=True)
+    # id = models.AutoField(primary_key=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
     category_name = models.CharField(max_length=100)
@@ -38,7 +39,7 @@ class Category(models.Model):
 
 
 class Question(models.Model):
-    id = models.AutoField(primary_key=True)
+    # id = models.AutoField(primary_key=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
     category = models.ForeignKey(
@@ -65,7 +66,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    id = models.AutoField(primary_key=True)
+    # id = models.AutoField(primary_key=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
     question = models.ForeignKey(

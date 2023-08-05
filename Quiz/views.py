@@ -19,13 +19,13 @@ def register(request):
 
 
 def addUser(request):
-    user_id = request.POST['user_id']
+    username = request.POST['username']
     name = request.POST['name']
     password = request.POST['password']
-    user_info = User.objects.filter(user_id=user_id)
+    user_info = User.objects.filter(username=username)
     if not user_info.exists():
         User.objects.create(
-            user_id=user_id,
+            username=username,
             name=name,
             password=password)
         return redirect('/')
@@ -38,12 +38,12 @@ def addUser(request):
 def loginUser(request):
     try:
         user = User.objects.get(
-            user_id=request.POST['user_id'], password=request.POST['password'])
+            username=request.POST['username'], password=request.POST['password'])
 
         # Authentication - Setting Userinfo to cookie
 
         response = HttpResponseRedirect(reverse('index'))
-        response.set_cookie('user', user.user_id)
+        response.set_cookie('user', user.username)
         return response
     except (KeyError, User.DoesNotExist):
         return render(request, 'login.html', {
