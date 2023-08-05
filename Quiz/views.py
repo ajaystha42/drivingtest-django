@@ -64,8 +64,6 @@ def index(request):
 
 def quiz(request):
     questions = get_quiz(request)
-    for que in questions:
-        print(que)
     return render(request, 'quiz.html', {'questions': questions})
 
 
@@ -74,9 +72,11 @@ def get_quiz(request):
         question_objs = (Question.objects.all())
 
         if request.GET.get('category'):
-            question_objs = question_objs.filter(category__category_name__icontains=request.GET.get('category'))
+            question_objs = question_objs.filter(
+                category__category_name__icontains=request.GET.get('category'))
 
         question_objs = list(question_objs)
+
         data = []
         random.shuffle(question_objs)
         for question_obj in question_objs:
@@ -86,10 +86,10 @@ def get_quiz(request):
                 "marks": question_obj.marks,
                 "answers": question_obj.get_answer()
             })
-        payload = {
-            'status': True,
-            'data': data
-        }
+        # payload = {
+        #     'status': True,
+        #     'data': data
+        # }
 
         return random.sample(data, 5)
 
