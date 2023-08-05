@@ -13,15 +13,18 @@
                 <label>Question</label><br>
                 {% for que in questions %}
                 <br>{{que.question}}
-                <select name="answer">
-                    <br>
-                    {% for ans in que.answers %}
-                    <option value="{{question.question}}">{{ans.answer}}</option>
+                <li>
+                  {% for ans in que.answers %}
+                    <ul>
+                        <input type="radio" id="{{ans.id}}" value="{{ans.id}}" name=""/>
+                        <label for="{{ans.id}}">
+                            {{ans.answer}}
+                        </label>
+                    </ul>
                     <br>
                     {% endfor %}
-
-                </select>
-
+                    <br>
+                </li>
                 {% endfor %}
             </div>
             <button class="btn btn-danger mt-3" onclick="submitForm()">Submit</button>
