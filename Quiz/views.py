@@ -1,27 +1,35 @@
 from django.shortcuts import redirect, render
 from Quiz.models import User
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import *
 from Quiz.forms import UserRegistrationForm, UserLoginForm
-from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm
 
 
 def login(request):
-    print('inside loginnnnnnnnnnnnnnn')
     form = UserLoginForm()
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
-        print('form data hererrrrrererere   ', form)
+        form = UserLoginForm(request.POST)
         try:
             if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
+                print(username)
+                print(password)
+                user = authenticate(
+                    request, username=username, password=password)
+                print('inside loginnnnnnnnnnnnnnn    ', user)
+
+                if user:
+                    response = HttpResponseRedirect(reverse('index'))
+                    response.set_cookie('user', user.username)
+                    return response
+
+                # Authentication - Setting Userinfo to cookie
+                # remove this
                 user = User.objects.get(
                     username=username, password=password)
-                # Authentication - Setting Userinfo to cookie
                 response = HttpResponseRedirect(reverse('index'))
                 response.set_cookie('user', user.username)
                 return response

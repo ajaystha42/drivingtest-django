@@ -13,7 +13,6 @@ class UserRegistrationForm(forms.ModelForm):
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Enter Username', }),
             'name': forms.TextInput(attrs={'placeholder': 'Enter Name', }),
-            # 'password': forms.TextInput(attrs={'placeholder': 'Enter Password', }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -30,13 +29,13 @@ class UserLoginForm(forms.ModelForm):
         model = User
         fields = (
             'username',
-            # 'name',
+            'name',
             'password'
         )
         exclude = ("name",)
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Enter Username', 'required': 'True'}),
-            # 'name': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
             'password': forms.TextInput(attrs={'placeholder': 'Enter Password', 'required': 'True'}),
         }
 
