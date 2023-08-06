@@ -51,48 +51,6 @@ def login(request):
             return render(request, 'login.html', {'form': form})
 
 
-# class CustomLoginView(LoginView):
-#     form_class = UserLoginForm
-#     template_name = 'login.html'
-
-
-# def login(request):
-#     print('inside loginnnnnnnnnnnnnnn')
-#     form = CustomAuthenticationForm(request)
-#     if request.method == 'POST':
-#         form = CustomAuthenticationForm(request.POST)
-#         print(form)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-
-#             # Authenticate the user using Django's built-in function
-#             user = authenticate(username=username, password=password)
-#             print('ajayyyyyy   ', user)
-#             if user is not None:
-#                 # Login the user if authenticated
-#                 login(request, user)
-#                 response = HttpResponseRedirect(reverse('index'))
-#                 response.set_cookie('user', user.username)
-#                 return response
-#             else:
-#                 return render(request, 'login.html', {
-#                     'error': "Invalid Credentials. Try again!",
-#                     'form': form
-#                 })
-#         else:
-#             return render(request, 'login.html', {
-#                 'error': "Form is invalid!",
-#                 'form': form
-#             })
-#     else:
-#         try:
-#             user = request.COOKIES['user']
-#             return render(request, 'index.html')
-#         except KeyError:
-#             return render(request, 'login.html', {'form': form})
-
-
 def register(request):
     form = UserRegistrationForm()
     if request.method == 'POST':
