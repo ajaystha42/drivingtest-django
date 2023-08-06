@@ -5,7 +5,6 @@ import uuid
 
 
 class User(models.Model):
-    # id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
@@ -17,19 +16,7 @@ class User(models.Model):
         db_table = 'users'
 
 
-# class models.Model(models.Model):
-#     uid = models.UUIDField(
-#         primary_key=True, default=uuid.uuid4, editable=False)
-#     created_at = models.DateField(auto_now_add=True)
-#     updated_at = models.DateField(auto_now_add=True)
-
-#     class Meta:
-#         abstract = True
-
-
-# Create your models here.
 class Category(models.Model):
-    # id = models.AutoField(primary_key=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
     category_name = models.CharField(max_length=100)
@@ -39,7 +26,6 @@ class Category(models.Model):
 
 
 class Question(models.Model):
-    # id = models.AutoField(primary_key=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
     category = models.ForeignKey(
@@ -66,7 +52,6 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    # id = models.AutoField(primary_key=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
     question = models.ForeignKey(

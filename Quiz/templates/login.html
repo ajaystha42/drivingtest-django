@@ -9,27 +9,31 @@
   </head>
   <body>
     <div class="main-container">
-      <form method="POST" action="/loginUser">
+      <form method="POST" action="/login">
         {%csrf_token%}
         <div>
           <p>Enter Login Details</p>
           <div class="input-container">
-            <input
+            <p>Username :</p>
+            {{form.username}}
+            <!-- <input
               id="username"
               name="username"
               placeholder="Enter Username"
               required
               type="text"
-            />
+            /> -->
           </div>
           <div class="input-container">
-            <input
+            <p>Password :</p>
+            {{form.password}}
+            <!-- <input
               id="password"
               name="password"
               placeholder="Enter Password"
               required
               type="password"
-            />
+            /> -->
           </div>
           {% if error %}
           <div class="error-message">{{error}}</div>
@@ -41,7 +45,7 @@
         </div>
       </form>
 
-      <p>New User? Go to <a href="/register">Register here</a></p>
+      <p>New User? <a href="/register">Register here</a></p>
     </div>
   </body>
 </html>

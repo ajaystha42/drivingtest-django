@@ -1,54 +1,110 @@
-import json
 from django.shortcuts import redirect, render
 from Quiz.models import User
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from .models import *
+from Quiz.forms import UserRegistrationForm, UserLoginForm
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def login(request):
-    try:
-        user = request.COOKIES['user']
-        return render(request, 'index.html')
-    except KeyError:
-        return render(request, 'login.html')
+    print('inside loginnnnnnnnnnnnnnn')
+    form = UserLoginForm()
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        print('form data hererrrrrererere   ', form)
+        try:
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = User.objects.get(
+                    username=username, password=password)
+                # Authentication - Setting Userinfo to cookie
+                response = HttpResponseRedirect(reverse('index'))
+                response.set_cookie('user', user.username)
+                return response
+            else:
+                return render(request, 'login.html', {
+                    'error': "form is invalid!",
+                    'form': form})
+        except User.DoesNotExist:
+            return render(request, 'login.html', {
+                'error': "Invalid Credentials. Try again!",
+                'form': form
+            })
+
+    else:
+        try:
+            user = request.COOKIES['user']
+            return render(request, 'index.html')
+        except KeyError:
+            return render(request, 'login.html', {'form': form})
+
+
+# class CustomLoginView(LoginView):
+#     form_class = UserLoginForm
+#     template_name = 'login.html'
+
+
+# def login(request):
+#     print('inside loginnnnnnnnnnnnnnn')
+#     form = CustomAuthenticationForm(request)
+#     if request.method == 'POST':
+#         form = CustomAuthenticationForm(request.POST)
+#         print(form)
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+
+#             # Authenticate the user using Django's built-in function
+#             user = authenticate(username=username, password=password)
+#             print('ajayyyyyy   ', user)
+#             if user is not None:
+#                 # Login the user if authenticated
+#                 login(request, user)
+#                 response = HttpResponseRedirect(reverse('index'))
+#                 response.set_cookie('user', user.username)
+#                 return response
+#             else:
+#                 return render(request, 'login.html', {
+#                     'error': "Invalid Credentials. Try again!",
+#                     'form': form
+#                 })
+#         else:
+#             return render(request, 'login.html', {
+#                 'error': "Form is invalid!",
+#                 'form': form
+#             })
+#     else:
+#         try:
+#             user = request.COOKIES['user']
+#             return render(request, 'index.html')
+#         except KeyError:
+#             return render(request, 'login.html', {'form': form})
 
 
 def register(request):
-    return render(request, 'register.html')
+    form = UserRegistrationForm()
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            try:
+                username = form.cleaned_data['username']
+                user_info = User.objects.filter(username=username)
+                if not user_info.exists():
+                    form.save()
+                    return redirect('/')
 
+                return render(request, 'register.html', {
+                    'error': "User already exists. Please choose other username.",
+                    'form': form
+                })
+            except:
+                pass
 
-def addUser(request):
-    username = request.POST['username']
-    name = request.POST['name']
-    password = request.POST['password']
-    user_info = User.objects.filter(username=username)
-    if not user_info.exists():
-        User.objects.create(
-            username=username,
-            name=name,
-            password=password)
-        return redirect('/')
-
-    return render(request, 'register.html', {
-        'error': "User already exists. Please choose other username.",
-    })
-
-
-def loginUser(request):
-    try:
-        user = User.objects.get(
-            username=request.POST['username'], password=request.POST['password'])
-
-        # Authentication - Setting Userinfo to cookie
-
-        response = HttpResponseRedirect(reverse('index'))
-        response.set_cookie('user', user.username)
-        return response
-    except (KeyError, User.DoesNotExist):
-        return render(request, 'login.html', {
-            'error': "Invalid Credentials. Try again!",
-        })
+    return render(request, 'register.html', {'form': form})
 
 
 def index(request):
@@ -59,7 +115,8 @@ def index(request):
             return redirect(f"/quiz?category={request.GET.get('category')}")
         return render(request, 'index.html', context)
     except KeyError:
-        return render(request, 'login.html')
+        # redirect('/')
+        return login(request)
 
 
 def quiz(request):
@@ -87,10 +144,6 @@ def get_quiz(request):
                 "marks": question_obj.marks,
                 "answers": question_obj.get_answer()
             })
-        # payload = {
-        #     'status': True,
-        #     'data': data
-        # }
 
         return random.sample(data, 3)
 
