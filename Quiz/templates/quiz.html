@@ -3,18 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
+
+    <link rel="stylesheet" href="../static/quiz.css" />
   </head>
   <body>
-    <div class="container mt-5 pt-5">
-      <div class="col-md-6 mx-auto">
-        <form id="quizForm">
-          <div class="form-group">
-            <label>Question</label><br />
-            {% for que in questions %}
-            <br />{{que.question}}
-            <li>
+    <main class="main-container">
+      <form id="quizForm">
+        <div class="form-group">
+          <h2>Question</h2>
+          <br />
+          {% for que in questions %}
+
+          <div class="question-container">
+            <h3>{{que.question}}</h3>
+            <ul class="options-list">
               {% for ans in que.answers %}
-              <ul>
+              <li class="option">
                 <input
                   type="radio"
                   id="{{ans.id}}"
@@ -22,18 +26,18 @@
                   name="{{que.id }}"
                 />
                 <label for="{{ans.id}}"> {{ans.answer}} </label>
-              </ul>
+              </li>
               <br />
               {% endfor %}
               <br />
-            </li>
-            {% endfor %}
+            </ul>
           </div>
-          <button class="btn btn-danger mt-3" onclick="submitForm()">
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
+          {% endfor %}
+        </div>
+        <button class="btn btn-danger mt-3" onclick="submitForm()">
+          Submit
+        </button>
+      </form>
+    </main>
   </body>
 </html>
