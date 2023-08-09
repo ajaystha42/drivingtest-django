@@ -10,8 +10,8 @@ h2 {
 }
 
 .main-container {
-  margin: 0 auto;
-  padding: 30px 20px;
+  margin: 40px auto;
+  padding: 50px 30px;
   max-width: 600px;
   text-align: center;
 
@@ -22,6 +22,10 @@ h2 {
   margin: 20px;
 }
 
+.input-container p {
+  margin: 10px;
+}
+
 .input-container input {
   padding: 10px;
   width: 300px;
@@ -30,6 +34,7 @@ h2 {
 
 button {
   padding: 15px 40px;
+  margin-bottom: 20px;
   border-radius: 100px;
   border: none;
   color: #fff;
