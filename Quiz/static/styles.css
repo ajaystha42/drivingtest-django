@@ -10,16 +10,22 @@ h2 {
 }
 
 .main-container {
-  margin: 0 auto;
-  padding: 30px 20px;
+  margin: 40px auto;
+  padding: 50px 60px;
   max-width: 600px;
   text-align: center;
 
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .input-container {
   margin: 20px;
+}
+
+.input-container p {
+  margin: 10px;
 }
 
 .input-container input {
@@ -30,6 +36,7 @@ h2 {
 
 button {
   padding: 15px 40px;
+  margin-bottom: 20px;
   border-radius: 100px;
   border: none;
   color: #fff;

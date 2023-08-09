@@ -1,15 +1,35 @@
-<!doctype html>
+<!-- <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>All Quiz Results</title>
-</head>
-<body>
-    <h1>All Quiz Results</h1>
-    <ul>
-        {% for quiz_result in quiz_results %}
-            <li>User: {{ quiz_result.user.username }}, Score: {{ quiz_result.score }}, Date: {{ quiz_result.datetime }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+  </head> -->
+
+{% extends 'base.html' %} {% load static %}
+<!--  -->
+
+{% block css_files %}
+<!-- <link rel="stylesheet" href="../static/styles.css" /> -->
+{%endblock %}
+
+<!--  -->
+{% block page_title %} Quiz App - All Quiz Results {% endblock %}
+
+<!--  -->
+
+{% block content %}
+<div class="all-results-container">
+  <h1>All Quiz Results</h1>
+  <ul>
+    {% for quiz_result in quiz_results %}
+    <li>
+      User: {{ quiz_result.user.username }}, Score: {{ quiz_result.score }},
+      Date: {{ quiz_result.datetime }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
+
+<!-- </html> -->

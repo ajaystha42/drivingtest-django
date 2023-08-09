@@ -1,11 +1,28 @@
-<!doctype html>
+<!-- <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Quiz Result</title>
-</head>
-<body>
-    <h1>Quiz Result</h1>
-    <p>Your score: {{ user_score }}</p>
-</body>
-</html>
+  </head> -->
+
+{% extends 'base.html' %} {% load static %}
+<!--  -->
+
+{% block css_files %}
+<!-- <link rel="stylesheet" href="../static/styles.css" /> -->
+{%endblock %}
+
+<!--  -->
+{% block page_title %} Quiz App - All Quiz Results {% endblock %}
+
+<!--  -->
+
+{% block content %}
+<div class="result-container">
+  <h1>Quiz Result</h1>
+  <p>Your score: {{ user_score }}</p>
+</div>
+
+{% endblock %}
+
+<!-- </html> -->
