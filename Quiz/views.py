@@ -22,7 +22,6 @@ def login(request):
                 print(password)
                 user = authenticate(
                     request, username=username, password=password)
-                print('inside loginnnnnnnnnnnnnnn    ', user)
 
                 if user:
                     response = HttpResponseRedirect(reverse('index'))
@@ -49,7 +48,8 @@ def login(request):
     else:
         try:
             user = request.COOKIES['user']
-            return render(request, 'index.html')
+            return redirect('/index')
+            # return render(request, 'index.html')
         except KeyError:
             return render(request, 'login.html', {'form': form})
 
@@ -84,8 +84,8 @@ def index(request):
             return redirect(f"/quiz?category={request.GET.get('category')}")
         return render(request, 'index.html', context)
     except KeyError:
-        # redirect('/')
-        return login(request)
+        return redirect('/')
+        # return login(request)
 
 
 def quiz(request):
@@ -121,32 +121,43 @@ def get_quiz(request):
     return HttpResponse("Something went wrong")
 
 
+def all_quiz_results_view(request):
+    quiz_results = QuizResult.objects.all()  # Get all quiz results
+    print('all qioz results', quiz_results)
+    context = {'quiz_results': quiz_results}
+    return render(request, 'all_quiz_results_template.html', context)
+
+
 def result(request):
     if request.method == 'POST':
         user_answers = request.POST.dict()
+        print('request jere  ', user_answers)
         user_score = 0
 
         for question_id, selected_choice_id in user_answers.items():
             if question_id.startswith('question'):
                 try:
-
                     question = Question.objects.get(pk=int(question_id[8:]))
-                    selected_choice = Answer.objects.get(pk=int(selected_choice_id))
+                    print('question', question)
+                    selected_choice = Answer.objects.get(
+                        pk=int(selected_choice_id))
                     print("Selected choice ID:", selected_choice_id)
                     print("Selected choice:", selected_choice)
                     if selected_choice.is_correct:
                         user_score += 1
                         print("User score:", user_score)
                 except Answer.DoesNotExist:
-                    print(f"Answer matching query does not exist for question ID {question_id[8:]}")
+                    print(
+                        f"Answer matching query does not exist for question ID {question_id[8:]}")
         current_date = datetime.now()
         try:
             user12 = User.objects.get(username=request.COOKIES['user'])
         except User.DoesNotExist:
-            # Handle the case where the user doesn't exist
-            pass
+            return redirect('/')
+            # return login(request)
         else:
-            quiz_result = QuizResult(user=user12, score=user_score)  # Create a new quiz result
+            # Create a new quiz result
+            quiz_result = QuizResult(user=user12, score=user_score)
             quiz_result.save()
 
         return render(request, 'quiz_result.html', {'user_score': user_score, 'current_datetime': current_date})
