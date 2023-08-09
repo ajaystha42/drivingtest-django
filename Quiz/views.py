@@ -1,3 +1,6 @@
+import datetime
+from datetime import datetime
+
 from django.shortcuts import redirect, render
 from Quiz.models import User
 from django.http import HttpResponseRedirect, HttpResponse
@@ -116,3 +119,57 @@ def get_quiz(request):
     except Exception as e:
         print(e)
     return HttpResponse("Something went wrong")
+
+
+def result(request):
+    if request.method == 'POST':
+        user_answers = request.POST.dict()
+        user_score = 0
+
+        for question_id, selected_choice_id in user_answers.items():
+            if question_id.startswith('question'):
+                try:
+
+                    question = Question.objects.get(pk=int(question_id[8:]))
+                    selected_choice = Answer.objects.get(pk=int(selected_choice_id))
+                    print("Selected choice ID:", selected_choice_id)
+                    print("Selected choice:", selected_choice)
+                    if selected_choice.is_correct:
+                        user_score += 1
+                        print("User score:", user_score)
+                except Answer.DoesNotExist:
+                    print(f"Answer matching query does not exist for question ID {question_id[8:]}")
+        current_date = datetime.now()
+        try:
+            user12 = User.objects.get(username=request.COOKIES['user'])
+        except User.DoesNotExist:
+            # Handle the case where the user doesn't exist
+            pass
+        else:
+            quiz_result = QuizResult(user=user12, score=user_score)  # Create a new quiz result
+            quiz_result.save()
+
+        return render(request, 'quiz_result.html', {'user_score': user_score, 'current_datetime': current_date})
+
+    return redirect('quiz')
+
+    # right_answers = 0
+    # question_ids = request.POST["questionids"].split(',')
+    # print(question_ids)
+    # for question_id in question_ids:
+    #     question = Question.objects.get(pk=question_id)
+    #     user_answer = request.POST['question' + str(question.id)]
+    #     correct_choices = question.choice_set.filter(
+    #         pk=user_answer, is_correct=True)
+    #     if len(correct_choices) > 0:
+    #         right_answers += 1
+    #         for choice in correct_choices:
+    #             print('Question %s - User choice %s => Correct choice %s' %
+    #                   (question.id, user_answer, str(choice)))
+    #     else:
+    #         print("Question => " + question.question_text +
+    #               " Answer => " + user_answer)
+    # user = User.objects.get(pk=user_id)
+    # result = user.quizresults_set.create(
+    #     right_answers=right_answers, quiz_played_on=timezone.now())
+    # return HttpResponseRedirect(reverse('Quiz:quiz_result', args=(user_id, result.id)))

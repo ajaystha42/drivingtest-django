@@ -1,6 +1,9 @@
 from django.db import models
 import random
+from django.shortcuts import render
 import uuid
+
+
 # Create your models here.
 
 
@@ -61,3 +64,17 @@ class Answer(models.Model):
 
     def __str__(self) -> str:
         return self.answer
+
+
+class QuizResult(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField()
+    datetime = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"User: {self.user.username}, Score: {self.score}, Date: {self.datetime}"
+
+def all_quiz_results_view(request):
+    quiz_results = QuizResult.objects.all()  # Get all quiz results
+    context = {'quiz_results': quiz_results}
+    return render(request, 'all_quiz_results_template.html', context)

@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Quiz Results</title>
+</head>
+<body>
+    <h1>All Quiz Results</h1>
+    <ul>
+        {% for quiz_result in quiz_results %}
+            <li>User: {{ quiz_result.user.username }}, Score: {{ quiz_result.score }}, Date: {{ quiz_result.datetime }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

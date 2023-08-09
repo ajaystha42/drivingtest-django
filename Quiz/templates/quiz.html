@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Title</title>
-
-    <link rel="stylesheet" href="../static/quiz.css" />
-  </head>
-  <body>
-    <main class="main-container">
-      <form id="quizForm">
+    <link rel="stylesheet" href="../static/quiz.css"/>
+</head>
+<body>
+<main class="main-container">
+    <form id="quizForm" method="post" action="/result">
+        {% csrf_token %}
         <div class="form-group">
-          <h2>Question</h2>
-          <br />
-          {% for que in questions %}
+            <h2>Question</h2>
+            <br/>
+            {% for que in questions %}
 
-          <div class="question-container">
-            <h3>{{que.question}}</h3>
-            <ul class="options-list">
-              {% for ans in que.answers %}
-              <li class="option">
-                <input
-                  type="radio"
-                  id="{{ans.id}}"
-                  value="{{ans.id}}"
-                  name="{{que.id }}"
-                />
-                <label for="{{ans.id}}"> {{ans.answer}} </label>
-              </li>
-              <br />
-              {% endfor %}
-              <br />
-            </ul>
-          </div>
-          {% endfor %}
+            <div class="question-container">
+                <h3>{{que.question}}</h3>
+                <ul class="options-list">
+                    {% for ans in que.answers %}
+                    <li class="option">
+                        <input
+                                type="radio"
+                                id="{{ans.id}}"
+                                value="{{ans.id}}"
+                                name="question{{que.id}}"
+                        />
+                        <label for="{{ans.id}}"> {{ans.answer}} </label>
+                    </li>
+                    <br/>
+                    {% endfor %}
+                    <br/>
+                </ul>
+            </div>
+            {% endfor %}
         </div>
-        <button class="btn btn-danger mt-3" onclick="submitForm()">
-          Submit
+        <button class="btn btn-danger mt-3" onclick="">
+            Submit
         </button>
-      </form>
-    </main>
-  </body>
+    </form>
+</main>
+</body>
 </html>
