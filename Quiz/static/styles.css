@@ -11,11 +11,13 @@ h2 {
 
 .main-container {
   margin: 40px auto;
-  padding: 50px 30px;
+  padding: 50px 60px;
   max-width: 600px;
   text-align: center;
 
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .input-container {
