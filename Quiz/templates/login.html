@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,35 +7,51 @@
 
     <link rel="stylesheet" href="../static/styles.css" />
   </head>
-  <body>
-    <div class="main-container">
-      <form method="POST" action="/login">
-        {%csrf_token%}
-        <div>
-          <p>Enter Login Details</p>
-          <div class="input-container">
-            <p>Username :</p>
-            {{form.username}}
-          </div>
-          <!-- <div class="input-container">
+  <body> -->
+
+{% extends 'base.html' %} {% load static %}
+<!--  -->
+
+{% block css_files %}
+<link rel="stylesheet" href="../static/styles.css" />
+{%endblock %}
+
+<!--  -->
+{% block page_title %} Quiz App - Login {% endblock %}
+
+<!--  -->
+
+{% block content %}
+<div class="main-container">
+  <form method="POST" action="/login">
+    {%csrf_token%}
+    <div>
+      <p>Enter Login Details</p>
+      <div class="input-container">
+        <p>Username :</p>
+        {{form.username}}
+      </div>
+      <!-- <div class="input-container">
             <p>Name :</p>
             {{form.name}}
           </div> -->
-          <div class="input-container">
-            <p>Password :</p>
-            {{form.password}}
-          </div>
-          {% if error %}
-          <div class="error-message">{{error}}</div>
-          {% endif %}
-          <div>
-            <br />
-            <button type="submit">Login</button>
-          </div>
-        </div>
-      </form>
-
-      <p>New User? <a href="/register">Register here</a></p>
+      <div class="input-container">
+        <p>Password :</p>
+        {{form.password}}
+      </div>
+      {% if error %}
+      <div class="error-message">{{error}}</div>
+      {% endif %}
+      <div>
+        <br />
+        <button type="submit">Login</button>
+      </div>
     </div>
-  </body>
-</html>
+  </form>
+
+  <p>New User? <a href="/register">Register here</a></p>
+</div>
+
+{% endblock %}
+<!-- </body>
+</html> -->
