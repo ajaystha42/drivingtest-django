@@ -47,6 +47,10 @@ footer {
   padding: 40px;
 }
 
+footer h2 {
+  margin-bottom: 20px;
+}
+
 .footer-links {
   display: flex;
   justify-content: center;
