@@ -51,7 +51,7 @@ def login(request):
             return redirect('/index')
             # return render(request, 'index.html')
         except KeyError:
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'login.html', {'form': form, 'user': None})
 
 
 def register(request):
@@ -73,7 +73,7 @@ def register(request):
             except:
                 pass
 
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html', {'form': form, 'user': None})
 
 
 def index(request):
@@ -95,6 +95,7 @@ def quiz(request):
 
 def get_quiz(request):
     try:
+        user = request.COOKIES['user']
         question_objs = (Question.objects.all())
 
         if request.GET.get('category'):
@@ -115,17 +116,24 @@ def get_quiz(request):
             })
 
         return random.sample(data, 3)
-
-    except Exception as e:
-        print(e)
-    return HttpResponse("Something went wrong")
+    except KeyError:
+        print('no data here')
+        return redirect('/login')
+    # except Exception as e:
+    #     print(e)
+    # return HttpResponse("Something went wrong")
 
 
 def all_quiz_results_view(request):
-    quiz_results = QuizResult.objects.all()  # Get all quiz results
-    print('all qioz results', quiz_results)
-    context = {'quiz_results': quiz_results}
-    return render(request, 'all_quiz_results_template.html', context)
+    try:
+        user = request.COOKIES['user']
+        # return redirect('/index')
+        quiz_results = QuizResult.objects.all()  # Get all quiz results
+        context = {'user': user, 'quiz_results': quiz_results}
+        return render(request, 'all_quiz_results_template.html', context)
+        # return render(request, 'index.html')
+    except KeyError:
+        return redirect('/')
 
 
 def result(request):
