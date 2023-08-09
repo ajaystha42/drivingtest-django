@@ -116,12 +116,12 @@ def get_quiz(request):
             })
 
         return random.sample(data, 3)
-    except KeyError:
-        print('no data here')
-        return redirect('/login')
-    # except Exception as e:
-    #     print(e)
-    # return HttpResponse("Something went wrong")
+    # except KeyError:
+    #     print('no data here')
+    #     return redirect('/login')
+    except Exception as e:
+        print(e)
+    return HttpResponse("Something went wrong")
 
 
 def all_quiz_results_view(request):
@@ -137,39 +137,43 @@ def all_quiz_results_view(request):
 
 
 def result(request):
-    if request.method == 'POST':
-        user_answers = request.POST.dict()
-        print('request jere  ', user_answers)
-        user_score = 0
+    try:
+        user = request.COOKIES['user']
+        if request.method == 'POST':
+            user_answers = request.POST.dict()
+            print('request jere  ', user_answers)
+            user_score = 0
 
-        for question_id, selected_choice_id in user_answers.items():
-            if question_id.startswith('question'):
-                try:
-                    question = Question.objects.get(pk=int(question_id[8:]))
-                    print('question', question)
-                    selected_choice = Answer.objects.get(
-                        pk=int(selected_choice_id))
-                    print("Selected choice ID:", selected_choice_id)
-                    print("Selected choice:", selected_choice)
-                    if selected_choice.is_correct:
-                        user_score += 1
-                        print("User score:", user_score)
-                except Answer.DoesNotExist:
-                    print(
-                        f"Answer matching query does not exist for question ID {question_id[8:]}")
-        current_date = datetime.now()
-        try:
-            user12 = User.objects.get(username=request.COOKIES['user'])
-        except User.DoesNotExist:
-            return redirect('/')
-            # return login(request)
-        else:
-            # Create a new quiz result
-            quiz_result = QuizResult(user=user12, score=user_score)
-            quiz_result.save()
+            for question_id, selected_choice_id in user_answers.items():
+                if question_id.startswith('question'):
+                    try:
+                        question = Question.objects.get(
+                            pk=int(question_id[8:]))
+                        print('question', question)
+                        selected_choice = Answer.objects.get(
+                            pk=int(selected_choice_id))
+                        print("Selected choice ID:", selected_choice_id)
+                        print("Selected choice:", selected_choice)
+                        if selected_choice.is_correct:
+                            user_score += 1
+                            print("User score:", user_score)
+                    except Answer.DoesNotExist:
+                        print(
+                            f"Answer matching query does not exist for question ID {question_id[8:]}")
+            current_date = datetime.now()
+            try:
+                user12 = User.objects.get(username=request.COOKIES['user'])
+            except User.DoesNotExist:
+                return redirect('/')
+                # return login(request)
+            else:
+                # Create a new quiz result
+                quiz_result = QuizResult(user=user12, score=user_score)
+                quiz_result.save()
 
-        return render(request, 'quiz_result.html', {'user_score': user_score, 'current_datetime': current_date})
-
+            return render(request, 'quiz_result.html', {'user_score': user_score, 'current_datetime': current_date, 'user': user})
+    except KeyError:
+        redirect('/')
     return redirect('quiz')
 
     # right_answers = 0
