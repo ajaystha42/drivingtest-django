@@ -89,15 +89,15 @@ def index(request):
 
 
 def quiz(request):
-    questions = get_quiz(request)
-    return render(request, 'quiz.html', {'questions': questions})
+    questions, category_name = get_quiz(request)
+    return render(request, 'quiz.html', {'questions': questions, 'category_name': category_name})
 
 
 def get_quiz(request):
     try:
         user = request.COOKIES['user']
         question_objs = (Question.objects.all())
-
+        category_name = request.GET.get('category')
         if request.GET.get('category'):
             question_objs = question_objs.filter(
                 category__category_name__icontains=request.GET.get('category'))
@@ -115,7 +115,7 @@ def get_quiz(request):
                 "answers": question_obj.get_answer()
             })
 
-        return random.sample(data, 3)
+        return random.sample(data, 3), category_name
     # except KeyError:
     #     print('no data here')
     #     return redirect('/login')
@@ -140,8 +140,10 @@ def result(request):
     try:
         user = request.COOKIES['user']
         if request.method == 'POST':
+            # print(request.POST)
+            # input_label_value = request.POST.get('input_label')
+            # print("category_name ::::::::",input_label_value)
             user_answers = request.POST.dict()
-            print('request jere  ', user_answers)
             user_score = 0
 
             for question_id, selected_choice_id in user_answers.items():
@@ -149,14 +151,16 @@ def result(request):
                     try:
                         question = Question.objects.get(
                             pk=int(question_id[8:]))
-                        print('question', question)
+                        try:
+                            category_identifier =question.category.category_name
+                            category_instance = Category.objects.get(category_name=category_identifier)
+                        except Category.DoesNotExist:
+                            print("category doesnot exist")
+
                         selected_choice = Answer.objects.get(
                             pk=int(selected_choice_id))
-                        print("Selected choice ID:", selected_choice_id)
-                        print("Selected choice:", selected_choice)
                         if selected_choice.is_correct:
                             user_score += 1
-                            print("User score:", user_score)
                     except Answer.DoesNotExist:
                         print(
                             f"Answer matching query does not exist for question ID {question_id[8:]}")
@@ -168,12 +172,11 @@ def result(request):
                 # return login(request)
             else:
                 # Create a new quiz result
-                quiz_result = QuizResult(user=user12, score=user_score)
+                quiz_result = QuizResult(user=user12, score=user_score, category= category_instance)
                 quiz_result.save()
 
-            return render(request, 'quiz_result.html', {'user_score': user_score, 'current_datetime': current_date, 'user': user})
+            return render(request, 'quiz_result.html',
+                          {'user_score': user_score, 'current_datetime': current_date, 'user': user})
     except KeyError:
         redirect('/')
     return redirect('quiz')
-
-
