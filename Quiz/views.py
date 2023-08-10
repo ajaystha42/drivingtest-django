@@ -176,23 +176,4 @@ def result(request):
         redirect('/')
     return redirect('quiz')
 
-    # right_answers = 0
-    # question_ids = request.POST["questionids"].split(',')
-    # print(question_ids)
-    # for question_id in question_ids:
-    #     question = Question.objects.get(pk=question_id)
-    #     user_answer = request.POST['question' + str(question.id)]
-    #     correct_choices = question.choice_set.filter(
-    #         pk=user_answer, is_correct=True)
-    #     if len(correct_choices) > 0:
-    #         right_answers += 1
-    #         for choice in correct_choices:
-    #             print('Question %s - User choice %s => Correct choice %s' %
-    #                   (question.id, user_answer, str(choice)))
-    #     else:
-    #         print("Question => " + question.question_text +
-    #               " Answer => " + user_answer)
-    # user = User.objects.get(pk=user_id)
-    # result = user.quizresults_set.create(
-    #     right_answers=right_answers, quiz_played_on=timezone.now())
-    # return HttpResponseRedirect(reverse('Quiz:quiz_result', args=(user_id, result.id)))
+

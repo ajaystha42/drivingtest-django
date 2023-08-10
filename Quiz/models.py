@@ -75,8 +75,3 @@ class QuizResult(models.Model):
         return f"User: {self.user.username}, Score: {self.score}, Date: {self.datetime}"
 
 
-# def all_quiz_results_view(request):
-#     quiz_results = QuizResult.objects.all()  # Get all quiz results
-#     print('all qioz results', quiz_results)
-#     context = {'quiz_results': quiz_results}
-#     return render(request, 'all_quiz_results_template.html', context)
