@@ -13,17 +13,17 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 
 def login(request):
-    form = UserLoginForm()
+    # form = UserLoginForm()
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
+        print('login form data  ', form)
         try:
             if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
                 print(username)
                 print(password)
-                user = authenticate(
-                    request, username=username, password=password)
+                user = authenticate(username=username, password=password)
 
                 if user:
                     response = HttpResponseRedirect(reverse('index'))
@@ -32,12 +32,13 @@ def login(request):
 
                 # Authentication - Setting Userinfo to cookie
                 # remove this
-                user = User.objects.get(
-                    username=username, password=password)
-                response = HttpResponseRedirect(reverse('index'))
-                response.set_cookie('user', user.username)
+                # user = User.objects.get(
+                #     username=username, password=password)
+                # response = HttpResponseRedirect(reverse('index'))
+                # response.set_cookie('user', user.username)
                 return response
             else:
+                # messages.error()
                 return render(request, 'login.html', {
                     'error': "form is invalid!",
                     'form': form})
@@ -48,6 +49,7 @@ def login(request):
             })
 
     else:
+        form = UserLoginForm()
         try:
             user = request.COOKIES['user']
             return redirect('/index')
@@ -94,7 +96,8 @@ def register(request):
                     'form': form
                 })
 
-            new_user = User.objects.create_user(username=username, email=email, password=password)
+            new_user = User.objects.create_user(
+                username=username, email=email, password=password)
             new_user.save()
             return redirect("/")
     return render(request, 'register.html', {'form': form, 'user': None})
@@ -157,7 +160,8 @@ def all_quiz_results_view(request):
         user = request.COOKIES['user']
         print(user)
         # return redirect('/index')
-        quiz_results = QuizResult.objects.filter(user__username__icontains=user)
+        quiz_results = QuizResult.objects.filter(
+            user__username__icontains=user)
         highest = lowest = total_score = count = 0
         for quiz_result in quiz_results:
             score = quiz_result.score
@@ -194,8 +198,10 @@ def result(request):
                             pk=int(question_id[8:]))
                         try:
                             category_identifier = question.category.category_name
-                            category_instance = Category.objects.get(category_name=category_identifier)
-                            user12 = User.objects.get(username=request.COOKIES['user'])
+                            category_instance = Category.objects.get(
+                                category_name=category_identifier)
+                            user12 = User.objects.get(
+                                username=request.COOKIES['user'])
                         except (Category.DoesNotExist or User.DoesNotExist):
                             print("category or user doesnot exist")
                             return redirect('/')
@@ -209,7 +215,8 @@ def result(request):
                             f"Answer matching query does not exist for question ID {question_id[8:]}")
             current_date = datetime.now()
             # Create a new quiz result
-            quiz_result = QuizResult(user=user12, score=user_score, category=category_instance)
+            quiz_result = QuizResult(
+                user=user12, score=user_score, category=category_instance)
             quiz_result.save()
             percentage = user_score / 5 * 100
             return render(request, 'quiz_result.html',

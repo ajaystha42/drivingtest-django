@@ -28,24 +28,24 @@ class UserRegistrationForm(forms.ModelForm):
 
 class UserLoginForm(forms.ModelForm):
 
-    name = forms.CharField(widget=forms.HiddenInput(), required=False)
+    email = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = User
         fields = (
             'username',
-            'name',
+            'email',
             'password'
         )
-        exclude = ("name",)
+        exclude = ("email",)
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Enter Username', 'required': 'True'}),
-            'name': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
+            'email': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
             'password': forms.TextInput(attrs={'placeholder': 'Enter Password', 'required': 'True'}),
         }
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields['name'].required = False
+        self.fields['email'].required = False
         self.fields['password'].widget = PasswordInput(
             attrs={'placeholder': 'Enter Password'})
