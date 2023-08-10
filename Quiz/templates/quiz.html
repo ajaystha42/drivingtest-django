@@ -22,7 +22,8 @@
 
 {% block content %}
 <main class="main-container">
-  <form id="quizForm">
+  <form id="quizForm" method="post" action="/result">
+    {% csrf_token %}
     <div class="form-group">
       <h2>Question</h2>
       <br />
@@ -37,7 +38,7 @@
               type="radio"
               id="{{ans.id}}"
               value="{{ans.id}}"
-              name="{{que.id }}"
+              name="question{{que.id}}"
             />
             <label for="{{ans.id}}"> {{ans.answer}} </label>
           </li>
@@ -49,7 +50,7 @@
       {% endfor %}
     </div>
     <div class="btn-div">
-      <button class="submit-btn" onclick="submitForm()">Submit</button>
+      <button class="submit-btn">Submit</button>
     </div>
   </form>
 </main>
