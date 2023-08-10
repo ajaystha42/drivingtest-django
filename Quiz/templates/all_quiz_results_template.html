@@ -21,6 +21,9 @@
 <div class="all-results-container">
   <h1>All Quiz Results</h1>
   <ul>
+    Highest: {{highest}}
+    Lowest: {{lowest}}
+    Average: {{average}}
     {% for quiz_result in quiz_results %}
     <li>
       User: {{ quiz_result.user.username }}, Score: {{ quiz_result.score }},
