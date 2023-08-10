@@ -1,5 +1,6 @@
 from django import forms
-from Quiz.models import User
+from django.contrib.auth.models import User
+# from Quiz.models import User
 from django.forms import PasswordInput
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -9,10 +10,14 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = (
+            'username',
+            'email',
+            'password'
+        )
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Enter Username', }),
-            'name': forms.TextInput(attrs={'placeholder': 'Enter Name', }),
+            'email': forms.TextInput(attrs={'placeholder': 'Enter Email', }),
         }
 
     def __init__(self, *args, **kwargs):

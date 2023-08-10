@@ -2,21 +2,22 @@ from django.db import models
 import random
 from django.shortcuts import render
 import uuid
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 
 
-class User(models.Model):
-    username = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-
-    def __str__(self) -> str:
-        return "%s - %s - %s" % (self.id, self.username, self.name)
-
-    class Meta:
-        db_table = 'users'
+# class User(models.Model):
+#     username = models.CharField(max_length=100)
+#     name = models.CharField(max_length=100)
+#     password = models.CharField(max_length=100)
+#
+#     def __str__(self) -> str:
+#         return "%s - %s - %s" % (self.id, self.username, self.name)
+#
+#     class Meta:
+#         db_table = 'users'
 
 
 class Category(models.Model):
