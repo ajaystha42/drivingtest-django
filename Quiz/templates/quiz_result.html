@@ -20,8 +20,19 @@
 {% block content %}
 <div class="result-container">
   <h1>Quiz Result</h1>
-  <p>Your score: {{ user_score }}</p>
+  <p>Your score: {{ user_score }} out of 5</p><br>
+  <p>{{percentage}} %</p>
+  {% if user_score <= 2 %}
+  <p class="mark-message"><a href="quiz/">Please try again!</a></p>
+  {% elif user_score == 3 %}
+  <p class="mark-message">Good job!</p>
+  {% elif user_score == 4 %}
+  <p class="mark-message">Excellent work!</p>
+  {% else %}
+  <p class="mark-message">You are a genius!</p>
+  {% endif %}
 </div>
+<a href="all-quiz-results/" class="btn btn-primary">View All Quiz Results</a>
 
 {% endblock %}
 
