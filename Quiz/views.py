@@ -79,7 +79,7 @@ def register(request):
 def index(request):
     try:
         user = request.COOKIES['user']
-        context = {'categories': Category.objects.all()}
+        context = {'categories': Category.objects.all(), 'user': user}
         if request.GET.get('category'):
             return redirect(f"/quiz?category={request.GET.get('category')}")
         return render(request, 'index.html', context)
@@ -89,8 +89,12 @@ def index(request):
 
 
 def quiz(request):
-    questions = get_quiz(request)
-    return render(request, 'quiz.html', {'questions': questions})
+    try:
+        user = request.COOKIES['user']
+        questions = get_quiz(request)
+        return render(request, 'quiz.html', {'questions': questions, 'user': user})
+    except KeyError:
+        return redirect('/')
 
 
 def get_quiz(request):
@@ -127,8 +131,9 @@ def get_quiz(request):
 def all_quiz_results_view(request):
     try:
         user = request.COOKIES['user']
+        print(user)
         # return redirect('/index')
-        quiz_results = QuizResult.objects.all()  # Get all quiz results
+        quiz_results = QuizResult.objects.filter(user__username__icontains=user)
         highest = lowest = total_score = count = 0
         for quiz_result in quiz_results:
             score = quiz_result.score
@@ -140,7 +145,8 @@ def all_quiz_results_view(request):
             count += 1
         average = total_score / count
 
-        context = {'user': user, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest, 'average': round(float(average),2)}
+        context = {'user': user, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
+                   'average': round(float(average), 2)}
         return render(request, 'all_quiz_results_template.html', context)
         # return render(request, 'index.html')
     except KeyError:
@@ -184,7 +190,7 @@ def result(request):
             percentage = user_score / 5 * 100
             return render(request, 'quiz_result.html',
                           {'user_score': user_score, 'current_datetime': current_date, 'user': user,
-                           'percentage': percentage})
+                           'percentage': percentage,'category_name':category_instance.category_name})
     except KeyError:
         redirect('/')
     return redirect('quiz')

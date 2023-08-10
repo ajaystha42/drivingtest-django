@@ -23,7 +23,7 @@
   <p>Your score: {{ user_score }} out of 5</p><br>
   <p>{{percentage}} %</p>
   {% if user_score <= 2 %}
-  <p class="mark-message"><a href="quiz/">Please try again!</a></p>
+  <p class="mark-message"><a href="quiz/?category={{category_name}}">Please try again!</a></p>
   {% elif user_score == 3 %}
   <p class="mark-message">Good job!</p>
   {% elif user_score == 4 %}
