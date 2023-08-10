@@ -43,3 +43,10 @@ button {
   background-color: #04aa6d;
   cursor: pointer;
 }
+
+/* *******************QUIZ RESULT**************** */
+/* ********************************************** */
+.result-container {
+  margin: 50px auto;
+  text-align: center;
+}
