@@ -34,7 +34,7 @@ class Question(models.Model):
     category = models.ForeignKey(
         Category, related_name='category', on_delete=models.CASCADE)
     question = models.CharField(max_length=100)
-    marks = models.IntegerField(default=5)
+    marks = models.IntegerField(default=1)
 
     def __str__(self) -> str:
         return self.question

@@ -79,7 +79,7 @@ def register(request):
 def index(request):
     try:
         user = request.COOKIES['user']
-        context = {'categories': Category.objects.all()}
+        context = {'categories': Category.objects.all(), 'user': user}
         if request.GET.get('category'):
             return redirect(f"/quiz?category={request.GET.get('category')}")
         return render(request, 'index.html', context)
@@ -89,8 +89,12 @@ def index(request):
 
 
 def quiz(request):
-    questions, category_name = get_quiz(request)
-    return render(request, 'quiz.html', {'questions': questions, 'category_name': category_name})
+    try:
+        user = request.COOKIES['user']
+        questions = get_quiz(request)
+        return render(request, 'quiz.html', {'questions': questions, 'user': user})
+    except KeyError:
+        return redirect('/')
 
 
 def get_quiz(request):
@@ -115,7 +119,7 @@ def get_quiz(request):
                 "answers": question_obj.get_answer()
             })
 
-        return random.sample(data, 3), category_name
+        return random.sample(data, 5)
     # except KeyError:
     #     print('no data here')
     #     return redirect('/login')
@@ -127,9 +131,22 @@ def get_quiz(request):
 def all_quiz_results_view(request):
     try:
         user = request.COOKIES['user']
+        print(user)
         # return redirect('/index')
-        quiz_results = QuizResult.objects.all()  # Get all quiz results
-        context = {'user': user, 'quiz_results': quiz_results}
+        quiz_results = QuizResult.objects.filter(user__username__icontains=user)
+        highest = lowest = total_score = count = 0
+        for quiz_result in quiz_results:
+            score = quiz_result.score
+            if highest < score:
+                highest = score
+            if lowest > score:
+                lowest = score
+            total_score += score
+            count += 1
+        average = total_score / count
+
+        context = {'user': user, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
+                   'average': round(float(average), 2)}
         return render(request, 'all_quiz_results_template.html', context)
         # return render(request, 'index.html')
     except KeyError:
@@ -152,10 +169,12 @@ def result(request):
                         question = Question.objects.get(
                             pk=int(question_id[8:]))
                         try:
-                            category_identifier =question.category.category_name
+                            category_identifier = question.category.category_name
                             category_instance = Category.objects.get(category_name=category_identifier)
-                        except Category.DoesNotExist:
-                            print("category doesnot exist")
+                            user12 = User.objects.get(username=request.COOKIES['user'])
+                        except (Category.DoesNotExist or User.DoesNotExist):
+                            print("category or user doesnot exist")
+                            return redirect('/')
 
                         selected_choice = Answer.objects.get(
                             pk=int(selected_choice_id))
@@ -165,18 +184,13 @@ def result(request):
                         print(
                             f"Answer matching query does not exist for question ID {question_id[8:]}")
             current_date = datetime.now()
-            try:
-                user12 = User.objects.get(username=request.COOKIES['user'])
-            except User.DoesNotExist:
-                return redirect('/')
-                # return login(request)
-            else:
-                # Create a new quiz result
-                quiz_result = QuizResult(user=user12, score=user_score, category= category_instance)
-                quiz_result.save()
-
+            # Create a new quiz result
+            quiz_result = QuizResult(user=user12, score=user_score, category=category_instance)
+            quiz_result.save()
+            percentage = user_score / 5 * 100
             return render(request, 'quiz_result.html',
-                          {'user_score': user_score, 'current_datetime': current_date, 'user': user})
+                          {'user_score': user_score, 'current_datetime': current_date, 'user': user,
+                           'percentage': percentage,'category_name':category_instance.category_name})
     except KeyError:
         redirect('/')
     return redirect('quiz')
