@@ -152,10 +152,12 @@ def result(request):
                         question = Question.objects.get(
                             pk=int(question_id[8:]))
                         try:
-                            category_identifier =question.category.category_name
+                            category_identifier = question.category.category_name
                             category_instance = Category.objects.get(category_name=category_identifier)
-                        except Category.DoesNotExist:
-                            print("category doesnot exist")
+                            user12 = User.objects.get(username=request.COOKIES['user'])
+                        except (Category.DoesNotExist or User.DoesNotExist):
+                            print("category or user doesnot exist")
+                            return redirect('/')
 
                         selected_choice = Answer.objects.get(
                             pk=int(selected_choice_id))
@@ -165,15 +167,9 @@ def result(request):
                         print(
                             f"Answer matching query does not exist for question ID {question_id[8:]}")
             current_date = datetime.now()
-            try:
-                user12 = User.objects.get(username=request.COOKIES['user'])
-            except User.DoesNotExist:
-                return redirect('/')
-                # return login(request)
-            else:
-                # Create a new quiz result
-                quiz_result = QuizResult(user=user12, score=user_score, category= category_instance)
-                quiz_result.save()
+            # Create a new quiz result
+            quiz_result = QuizResult(user=user12, score=user_score, category= category_instance)
+            quiz_result.save()
 
             return render(request, 'quiz_result.html',
                           {'user_score': user_score, 'current_datetime': current_date, 'user': user})
