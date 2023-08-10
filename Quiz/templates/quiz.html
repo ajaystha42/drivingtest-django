@@ -25,17 +25,11 @@
   <form id="quizForm" method="post" action="/result" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-group">
-
       <h2>Question</h2>
-
       <br />
       {% for que in questions %}
-
       <div class="question-container">
         <h3>{{que.question}}</h3>
-
-        <label for="{{que.category}}">Category Type:</label>
-      <input type="text" id="{{que.category}}" name="{{que.category}}" value="{{que.category}}" disabled>
         <ul class="options-list">
           {% for ans in que.answers %}
           <li class="option">
