@@ -74,6 +74,8 @@ def register(request):
             new_user = User.objects.create_user(
                 username=username, email=email, password=password)
             new_user.save()
+            # Directly login after successful register
+            login(request, new_user)
             return redirect("/")
         else:
             existing_username = form.data['username']
