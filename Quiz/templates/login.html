@@ -32,9 +32,11 @@
               <p>Password :</p>
               {{form.password}}
             </div>
-            {% if error %}
-            <div class="error-message">{{error}}</div>
-            {% endif %}
+            {% for message in messages%}
+            <!-- {% if error %} -->
+            <div class="error-message">{{message}}</div>
+            <!-- {% endif %} -->
+            {%endfor %}
             <div>
               <button class="btn-login" type="submit">Login</button>
             </div>
