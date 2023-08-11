@@ -9,7 +9,7 @@
 <!--  -->
 
 {% block css_files %}
-<!-- <link rel="stylesheet" href="../static/styles.css" /> -->
+<link rel="stylesheet" href="../static/styles.css" />
 {%endblock %}
 
 <!--  -->
@@ -20,10 +20,13 @@
 {% block content %}
 <div class="result-container">
   <h1>Quiz Result</h1>
-  <p>Your score: {{ user_score }} out of 5</p><br>
-  <p>{{percentage}} %</p>
+  <p>Your score: {{ user_score }} out of 5</p>
+  <br />
+  <p class="percentage">{{percentage}} %</p>
   {% if user_score <= 2 %}
-  <p class="mark-message"><a href="quiz/?category={{category_name}}">Please try again!</a></p>
+  <p class="mark-message try-again-link">
+    <a href="quiz/?category={{category_name}}">Try again!</a>
+  </p>
   {% elif user_score == 3 %}
   <p class="mark-message">Good job!</p>
   {% elif user_score == 4 %}
@@ -31,8 +34,9 @@
   {% else %}
   <p class="mark-message">You are a genius!</p>
   {% endif %}
+
+  <a href="all-quiz-results/" class="btn-primary">View All Quiz Results</a>
 </div>
-<a href="all-quiz-results/" class="btn btn-primary">View All Quiz Results</a>
 
 {% endblock %}
 

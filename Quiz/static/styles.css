@@ -9,14 +9,15 @@ h2 {
   margin-bottom: 40px;
 }
 
-.main-container {
+.main-container,
+.result-container {
   margin: 40px auto;
   padding: 50px 60px;
   max-width: 600px;
   text-align: center;
 
-  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
-  border: 1px solid #ddd;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* border: 1px solid #ddd; */
   border-radius: 10px;
 }
 
@@ -34,7 +35,8 @@ h2 {
   height: 30px;
 }
 
-button {
+.btn-login,
+.btn-register {
   padding: 15px 40px;
   margin-bottom: 20px;
   border-radius: 100px;
@@ -42,4 +44,36 @@ button {
   color: #fff;
   background-color: #04aa6d;
   cursor: pointer;
+}
+
+.percentage {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.try-again-link {
+  margin-bottom: 30px;
+}
+
+.try-again-link a {
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 1000px;
+  color: #333;
+  background-color: #ffecd1;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 1000px;
+  background-color: #04aa6d;
+}
+
+/* *******************QUIZ RESULT**************** */
+/* ********************************************** */
+.result-container {
+  margin: 50px auto;
+  text-align: center;
 }

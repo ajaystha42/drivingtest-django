@@ -2,40 +2,37 @@ import datetime
 from datetime import datetime
 
 from django.shortcuts import redirect, render
-from Quiz.models import User
+# from Quiz.models import User
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import *
 from Quiz.forms import UserRegistrationForm, UserLoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 
 
-def login(request):
-    form = UserLoginForm()
+def loginUser(request):
+    # form = UserLoginForm()
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         try:
             if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
-                print(username)
-                print(password)
-                user = authenticate(
-                    request, username=username, password=password)
-
+                user = authenticate(username=username, password=password)
                 if user:
+                    login(request, user)
                     response = HttpResponseRedirect(reverse('index'))
-                    response.set_cookie('user', user.username)
+                    response.set_cookie('user', user)
                     return response
-
-                # Authentication - Setting Userinfo to cookie
-                # remove this
-                user = User.objects.get(
-                    username=username, password=password)
-                response = HttpResponseRedirect(reverse('index'))
-                response.set_cookie('user', user.username)
-                return response
+                messages.error(request, 'Check your Credentials again')
+                return render(request, 'login.html', {
+                    'error': "render errro",
+                    'form': form})
             else:
+                messages.error(request, 'form is not valid')
                 return render(request, 'login.html', {
                     'error': "form is invalid!",
                     'form': form})
@@ -44,8 +41,8 @@ def login(request):
                 'error': "Invalid Credentials. Try again!",
                 'form': form
             })
-
     else:
+        form = UserLoginForm()
         try:
             user = request.COOKIES['user']
             return redirect('/index')
@@ -54,25 +51,53 @@ def login(request):
             return render(request, 'login.html', {'form': form, 'user': None})
 
 
+def logoutUser(request):
+    logout(request)
+    return redirect('/login')
+
+# def register(request):
+#     form = UserRegistrationForm()
+#     if request.method == 'POST':
+#         form = UserRegistrationForm(request.POST)
+#         if form.is_valid():
+#             try:
+#                 username = form.cleaned_data['username']
+#                 email = form.cleaned_data['email']
+#                 password = form.cleaned_data['password']
+#                 user_info = User.objects.filter(email=email, username=username)
+#                 if not user_info.exists():
+#                     newUser = User.objects.create_user(username=username,  email=email, password=password)
+#                     # form.save()
+#                     return redirect('/')
+#
+#                 return render(request, 'register.html', {
+#                     'error': "User already exists. Please choose other username.",
+#                     'form': form
+#                 })
+#             except:
+#                 pass
+#
+#     return render(request, 'register.html', {'form': form, 'user': None})
+
+
 def register(request):
     form = UserRegistrationForm()
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            try:
-                username = form.cleaned_data['username']
-                user_info = User.objects.filter(username=username)
-                if not user_info.exists():
-                    form.save()
-                    return redirect('/')
-
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
                 return render(request, 'register.html', {
                     'error': "User already exists. Please choose other username.",
                     'form': form
                 })
-            except:
-                pass
 
+            new_user = User.objects.create_user(
+                username=username, email=email, password=password)
+            new_user.save()
+            return redirect("/")
     return render(request, 'register.html', {'form': form, 'user': None})
 
 
@@ -133,7 +158,8 @@ def all_quiz_results_view(request):
         user = request.COOKIES['user']
         print(user)
         # return redirect('/index')
-        quiz_results = QuizResult.objects.filter(user__username__icontains=user)
+        quiz_results = QuizResult.objects.filter(
+            user__username__icontains=user)
         highest = lowest = total_score = count = 0
         for quiz_result in quiz_results:
             score = quiz_result.score
@@ -170,8 +196,10 @@ def result(request):
                             pk=int(question_id[8:]))
                         try:
                             category_identifier = question.category.category_name
-                            category_instance = Category.objects.get(category_name=category_identifier)
-                            user12 = User.objects.get(username=request.COOKIES['user'])
+                            category_instance = Category.objects.get(
+                                category_name=category_identifier)
+                            user12 = User.objects.get(
+                                username=request.COOKIES['user'])
                         except (Category.DoesNotExist or User.DoesNotExist):
                             print("category or user doesnot exist")
                             return redirect('/')
@@ -185,12 +213,13 @@ def result(request):
                             f"Answer matching query does not exist for question ID {question_id[8:]}")
             current_date = datetime.now()
             # Create a new quiz result
-            quiz_result = QuizResult(user=user12, score=user_score, category=category_instance)
+            quiz_result = QuizResult(
+                user=user12, score=user_score, category=category_instance)
             quiz_result.save()
             percentage = user_score / 5 * 100
             return render(request, 'quiz_result.html',
                           {'user_score': user_score, 'current_datetime': current_date, 'user': user,
-                           'percentage': percentage,'category_name':category_instance.category_name})
+                           'percentage': percentage, 'category_name': category_instance.category_name})
     except KeyError:
         redirect('/')
     return redirect('quiz')

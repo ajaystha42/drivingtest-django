@@ -1,5 +1,6 @@
 from django import forms
-from Quiz.models import User
+from django.contrib.auth.models import User
+# from Quiz.models import User
 from django.forms import PasswordInput
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -9,10 +10,14 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = (
+            'username',
+            'email',
+            'password'
+        )
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Enter Username', }),
-            'name': forms.TextInput(attrs={'placeholder': 'Enter Name', }),
+            'email': forms.TextInput(attrs={'placeholder': 'Enter Email', }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -21,26 +26,31 @@ class UserRegistrationForm(forms.ModelForm):
             attrs={'placeholder': 'Enter Password'})
 
 
-class UserLoginForm(forms.ModelForm):
+class UserLoginForm(forms.Form):
 
-    name = forms.CharField(widget=forms.HiddenInput(), required=False)
-
-    class Meta:
-        model = User
-        fields = (
-            'username',
-            'name',
-            'password'
-        )
-        exclude = ("name",)
-        widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Enter Username', 'required': 'True'}),
-            'name': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
-            'password': forms.TextInput(attrs={'placeholder': 'Enter Password', 'required': 'True'}),
-        }
+    email = forms.CharField(widget=forms.HiddenInput(), required=False)
+    username = forms.CharField(label='Nombre de usuario')
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+    # class Meta:
+    #     model = User
+    #     fields = (
+    #         'username',
+    #         'email',
+    #         'password'
+    #     )
+    #     exclude = ("email",)
+    #     widgets = {
+    #         'username': forms.TextInput(attrs={'placeholder': 'Enter Username', 'required': 'True'}),
+    #         # 'email': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
+    #         'password': forms.TextInput(attrs={'placeholder': 'Enter Password', 'required': 'True'}),
+    #     }
 
     def __init__(self, *args, **kwargs):
-        super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields['name'].required = False
+        super().__init__(*args, **kwargs)
+        # super(UserLoginForm, self).__init__(*args, **kwargs)
+        # self.fields['email'].required = False
+
+        self.fields['username'].widget.attrs.update(
+            {'class': 'form-email', 'placeholder': 'Enter Username'})
         self.fields['password'].widget = PasswordInput(
             attrs={'placeholder': 'Enter Password'})
