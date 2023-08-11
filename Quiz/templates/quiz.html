@@ -36,7 +36,7 @@
       </h4>
       {% for que in questions %}
       <div class="question-container">
-        <h3 class="question">{{que.question}}</h3>
+        <h3 class="question">{{forloop.counter}}. {{que.question}}</h3>
         <ul class="options-list">
           {% for ans in que.answers %}
           <li class="option">
@@ -55,11 +55,46 @@
       {% endfor %}
     </div>
     <div class="btn-div">
-      <button class="submit-btn">Submit</button>
+      <button id="submitButton" class="submit-btn">Submit</button>
     </div>
   </form>
 </main>
 
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("quizForm");
+    const submitButton = document.getElementById("submitButton");
+
+    submitButton.addEventListener("click", function (event) {
+      if (!validateForm()) {
+        event.preventDefault();
+      }
+    });
+
+    function validateForm() {
+      const questions = document.querySelectorAll(".question-container");
+
+      for (const question of questions) {
+        const options = question.querySelectorAll("input[type=radio]");
+        let isOptionSelected = false;
+
+        for (const option of options) {
+          if (option.checked) {
+            isOptionSelected = true;
+            break;
+          }
+        }
+
+        if (!isOptionSelected) {
+          alert("Please select all the answer.");
+          return false;
+        }
+      }
+
+      return true;
+    }
+  });
+</script> -->
 {% endblock %}
 
 <!-- </body>

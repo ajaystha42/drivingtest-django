@@ -19,23 +19,28 @@
 
 {% block content %}
 <div class="result-container">
-  <h1>Quiz Result</h1>
-  <p>Your score: {{ user_score }} out of 5</p>
-  <br />
-  <p class="percentage">{{percentage}} %</p>
-  {% if user_score <= 2 %}
-  <p class="mark-message try-again-link">
-    <a href="quiz/?category={{category_name}}">Try again!</a>
-  </p>
-  {% elif user_score == 3 %}
-  <p class="mark-message">Good job!</p>
-  {% elif user_score == 4 %}
-  <p class="mark-message">Excellent work!</p>
-  {% else %}
-  <p class="mark-message">You are a genius!</p>
-  {% endif %}
+  <div class="result-img-div">
+    <img class="result-img" src="../static/media/result.png" alt="result" />
+  </div>
+  <div class="result-text">
+    <h1>Quiz Result</h1>
+    <p class="score">Your score: {{ user_score }} out of 5</p>
+    <br />
+    <p class="percentage">{{percentage}} %</p>
+    {% if user_score <= 2 %}
+    <p class="mark-message try-again-link">
+      <a href="quiz/?category={{category_name}}">Try again</a>
+    </p>
+    {% elif user_score == 3 %}
+    <p class="mark-message">Good job!</p>
+    {% elif user_score == 4 %}
+    <p class="mark-message">Excellent work!</p>
+    {% else %}
+    <p class="mark-message">You are a genius!</p>
+    {% endif %}
 
-  <a href="all-quiz-results/" class="btn-primary">View All Quiz Results</a>
+    <a href="all-quiz-results/" class="btn-primary">View previous results</a>
+  </div>
 </div>
 
 {% endblock %}
