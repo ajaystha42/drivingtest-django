@@ -53,10 +53,17 @@ body {
 }
 
 .welcome-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   text-decoration: none;
-  background-color: #a98467;
+  font-size: 18px;
   padding: 12px 20px;
   color: #fff;
+}
+
+.user-icon {
+  font-size: 25px;
 }
 
 .login-div {
@@ -71,8 +78,9 @@ body {
   z-index: 9;
   text-decoration: none;
 
-  padding: 10px 40px !important;
-  margin-top: 35px !important;
+  padding: 10px 30px !important;
+  margin-top: 45px !important;
+  margin-left: 20px !important;
   border: none !important;
   border-radius: 5px !important;
   background-color: #fff !important;
