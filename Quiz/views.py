@@ -79,22 +79,9 @@ def register(request):
             login(request, new_user)
             return redirect("/")
         else:
-            # print(form.errors.as_data())
-            # existing_username = form.data['username']
-            # if User.objects.filter(username=existing_username).exists():
-            #     messages.error(
-            #         request, 'Username already exists. Please choose another username')
-            # else:
-            #     invalid_password = form.errors.as_data()['password']
-            #     if invalid_password:
-            #         messages.error(
-            #             request, 'Password must be at least 8 characters long and contain letters, symbols and numbers.')
-            #     else:
             messages.error(
                 request, 'Error Occured. Please try again.')
-    return render(request, 'register.html', {'form': form,
-                                             #  'user': None
-                                             })
+    return render(request, 'register.html', {'form': form,})
 
 
 @login_required(login_url="/login")
@@ -116,25 +103,28 @@ def quiz(request):
 @login_required(login_url="/login")
 def get_quiz(request):
     question_objs = (Question.objects.all())
-    category_name = request.GET.get('category')
-    if request.GET.get('category'):
-        question_objs = question_objs.filter(
-            category__category_name__icontains=request.GET.get('category'))
+    try:
+        if request.GET.get('category'):
+            question_objs = question_objs.filter(
+                category__category_name__icontains=request.GET.get('category'))
 
-    question_objs = list(question_objs)
-
-    data = []
-    random.shuffle(question_objs)
-    for question_obj in question_objs:
-        data.append({
-            "id": question_obj.id,
-            "category": question_obj.category.category_name,
-            "question": question_obj.question,
-            "marks": question_obj.marks,
-            "answers": question_obj.get_answer()
-        })
-
-    return random.sample(data, 5)
+        question_objs = list(question_objs)
+        data = []
+        random.shuffle(question_objs)
+        for question_obj in question_objs:
+            data.append({
+                "id": question_obj.id,
+                "category": question_obj.category.category_name,
+                "question": question_obj.question,
+                "marks": question_obj.marks,
+                "answers": question_obj.get_answer()
+            })
+        if len(question_objs)>= 5:
+            return random.sample(data, 5)
+        else:
+            return random.sample(data, len(question_objs))
+    except ValueError:
+        return render(request, 'quiz.html')
 
 
 @login_required(login_url="/login")
