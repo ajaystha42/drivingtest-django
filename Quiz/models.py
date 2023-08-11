@@ -17,7 +17,7 @@ class Question(models.Model):
     updated_at = models.DateField(auto_now_add=True)
     category = models.ForeignKey(
         Category, related_name='category', on_delete=models.CASCADE)
-    question = models.CharField(max_length=100)
+    question = models.CharField(max_length=1000)
     marks = models.IntegerField(default=1)
 
     def __str__(self) -> str:

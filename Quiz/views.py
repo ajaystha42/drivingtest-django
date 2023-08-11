@@ -142,20 +142,22 @@ def all_quiz_results_view(request):
     quiz_results = QuizResult.objects.filter(
         user__username__icontains=request.user)
     highest = lowest = total_score = count = 0
-    for quiz_result in quiz_results:
-        score = quiz_result.score
-        if highest < score:
-            highest = score
-        if lowest > score:
-            lowest = score
-        total_score += score
-        count += 1
-    average = total_score / count
+    try:
+        for quiz_result in quiz_results:
+            score = quiz_result.score
+            if highest < score:
+                highest = score
+            if lowest > score:
+                lowest = score
+            total_score += score
+            count += 1
+        average = total_score / count
 
-    context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
-               'average': round(float(average), 2)}
-    return render(request, 'all_quiz_results_template.html', context)
-
+        context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
+                   'average': round(float(average), 2)}
+        return render(request, 'all_quiz_results_template.html', context)
+    except ZeroDivisionError:
+        return render(request,'all_quiz_results_template.html')
 
 @login_required(login_url="/login")
 def result(request):
