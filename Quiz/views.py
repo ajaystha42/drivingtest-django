@@ -15,39 +15,30 @@ from Quiz.forms import UserRegistrationForm, UserLoginForm
 def loginUser(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
-        try:
-            if form.is_valid():
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                user = authenticate(username=username, password=password)
-                if user:
-                    login(request, user)
-                    next_url = request.GET.get('next')
-                    print('NEXT URL    ', next_url)
-                    if next_url:
-                        return HttpResponseRedirect(next_url)
-                    else:
-                        # return render(request, 'main/main.html')
-                        response = HttpResponseRedirect(reverse('index'))
-                        return response
-                messages.error(request, 'Check your Credentials again')
-                return render(request, 'login.html', {
-                    'error': "render errro",
-                    'form': form,
-                    'user': None
-                })
-            else:
-                messages.error(request, 'form is not valid')
-                return render(request, 'login.html', {
-                    'error': "form is invalid!",
-                    'form': form,
-                    'user': None})
-        except User.DoesNotExist:
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                # next_url = request.GET.get('next')
+                # print('NEXT URL    ', next_url)
+                # if next_url:
+                #     return HttpResponseRedirect(next_url)
+                # else:
+                response = HttpResponseRedirect(reverse('index'))
+                return response
+            messages.error(request, 'Check your Credentials again')
             return render(request, 'login.html', {
-                'error': "Invalid Credentials. Try again!",
                 'form': form,
                 'user': None
             })
+        else:
+            print(form.error_class.as_data())
+            messages.error(request, 'Error Occured. Please try again.')
+            return render(request, 'login.html', {
+                'form': form,
+                'user': None})
     else:
         form = UserLoginForm()
         if request.user.is_authenticated:
@@ -66,50 +57,52 @@ def register(request):
     if request.user.is_authenticated:
         return redirect('/index')
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
+            if User.objects.filter(email=email).exists():
+                messages.error(
+                    request, 'Email already exists. Please choose unique email.')
+
                 return render(request, 'register.html', {
-                    'error': "User already exists. Please choose other username.",
                     'form': form,
                     'user': None
                 })
-
             new_user = User.objects.create_user(
                 username=username, email=email, password=password)
             new_user.save()
             return redirect("/")
+        else:
+            existing_username = form.data['username']
+            if existing_username:
+                messages.error(
+                    request, 'Username already exists. Please choose another username')
+            else:
+                messages.error(
+                    request, 'Error Occured. Please try again.')
     return render(request, 'register.html', {'form': form, 'user': None})
 
 
 @login_required(login_url="/login")
 def index(request):
-    # if request.user.is_authenticated:
     context = {'categories': Category.objects.all(),
                'user': request.user.username}
     if request.GET.get('category'):
         return redirect(f"/quiz?category={request.GET.get('category')}")
     return render(request, 'index.html', context)
-    # else:
-    #     return redirect('/')
 
 
 @login_required(login_url="/login")
 def quiz(request):
-    # if request.user.is_authenticated:
     questions = get_quiz(request)
     return render(request, 'quiz.html', {'questions': questions, 'user': request.user.username})
-    # else:
-    #     return redirect('/')
 
 
 @login_required(login_url="/login")
 def get_quiz(request):
-    # if request.user.is_authenticated:
     question_objs = (Question.objects.all())
     category_name = request.GET.get('category')
     if request.GET.get('category'):
@@ -130,13 +123,10 @@ def get_quiz(request):
         })
 
     return random.sample(data, 5)
-    # else:
-    #     return redirect('/')
 
 
 @login_required(login_url="/login")
 def all_quiz_results_view(request):
-    # if request.user.is_authenticated:
     quiz_results = QuizResult.objects.filter(
         user__username__icontains=request.user)
     highest = lowest = total_score = count = 0
@@ -153,13 +143,10 @@ def all_quiz_results_view(request):
     context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
                'average': round(float(average), 2)}
     return render(request, 'all_quiz_results_template.html', context)
-    # else:
-    #     return redirect('/')
 
 
 @login_required(login_url="/login")
 def result(request):
-    # if request.user.is_authenticated:
     if request.method == 'POST':
         user_answers = request.POST.dict()
         user_score = 0
@@ -194,6 +181,4 @@ def result(request):
         return render(request, 'quiz_result.html',
                       {'user_score': user_score, 'current_datetime': current_date, 'user': request.user.username,
                        'percentage': percentage, 'category_name': category_instance.category_name})
-    # else:
-    #     redirect('/')
     return redirect('quiz')
