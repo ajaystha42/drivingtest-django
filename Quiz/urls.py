@@ -1,8 +1,6 @@
-from django.contrib import admin
 from django.urls import path
 from Quiz import views
 
-# from .views import CustomLoginView
 
 urlpatterns = [
     path('', views.loginUser),

@@ -22,7 +22,12 @@
 
 {% block content %}
 <main class="main-container">
-  <form id="quizForm" method="post" action="/result" enctype="multipart/form-data">
+  <form
+    id="quizForm"
+    method="post"
+    action="/result"
+    enctype="multipart/form-data"
+  >
     {% csrf_token %}
     <div class="form-group">
       <h2>Question</h2>
