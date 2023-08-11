@@ -19,10 +19,15 @@ body {
 /* *****************NAVBAR*************** */
 /* ************************************** */
 .navigation {
-  padding: 25px 60px;
+  padding: 20px 60px;
   display: flex;
   justify-content: space-between;
-  background-color: #40916c;
+  align-items: center;
+  background-color: #04aa6d;
+}
+
+.navigation h3 {
+  margin-bottom: 0;
 }
 
 .navigation h3 a {
@@ -74,7 +79,7 @@ footer {
   text-align: center;
   background-color: #555;
   color: #fff;
-  padding: 40px;
+  padding: 30px;
 }
 
 footer h2 {

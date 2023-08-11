@@ -10,6 +10,9 @@ from Quiz.forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import authenticate, login
 
 
+def test(request):
+    return render(request, "test.html")
+
 def login(request):
     form = UserLoginForm()
     if request.method == 'POST':

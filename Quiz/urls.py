@@ -6,6 +6,7 @@ from Quiz import views
 
 urlpatterns = [
     path('', views.login),
+    path('test', views.test),
     path('login', views.login),
     path('register', views.register, name='register'),
     path('index', views.index, name='index'),

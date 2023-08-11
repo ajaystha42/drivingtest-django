@@ -1,79 +1,69 @@
-{% extends 'base.html' %} {% load static %}
-
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz App</title>
-    {%load static%}
-     comment this line--------------------  <link rel="stylesheet" href="{% static 'css/styles.css' %}" /> -->
-<!-- <link rel="stylesheet" href="../static/styles.css" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/styles.css" />
   </head>
-  <body> -->
-
-<!--  -->
-
-{% block css_files %}
-<link rel="stylesheet" href="../static/styles.css" />
-{%endblock %}
-
-<!--  -->
-{% block page_title %} Quiz App - Login {% endblock %}
-
-<!--  -->
-
-{% block content %}
-<div class="main-container">
-  <form method="POST">
-    {%csrf_token%}
-    <div>
-      <p>Enter User Details</p>
-      <div class="input-container">
-        <p>Username :</p>
-        {{form.username}}
-        <!-- <input
+  <body>
+    <div class="main-container">
+      <div class="img-container">
+        <img src="../static/media/register.png" alt="login" />
+      </div>
+      <div class="form-container">
+        <img class="logo" src="../static/media/logo.png" alt="logo" />
+        <form method="POST">
+          {%csrf_token%}
+          <div>
+            <h2 class="login-heading">Sign Up to DriveTest</h2>
+            <p class="login-desc">
+              Unlock a world of learning and challenge by registering for our
+              quiz app
+            </p>
+            <div class="input-container">
+              <p>Username :</p>
+              {{form.username}}
+              <!-- <input
               id="username"
               name="username"
               placeholder="Enter Username"
               required
               type="text"
             /> -->
-      </div>
-      <div class="input-container">
-        <p>Full Name :</p>
-        {{form.name}}
-        <!-- <input
+            </div>
+            <div class="input-container">
+              <p>Full Name :</p>
+              {{form.name}}
+              <!-- <input
               id="name"
               name="name"
               placeholder="Enter Name"
               required
               type="text"
             /> -->
-      </div>
-      <div class="input-container">
-        <p>Password :</p>
-        {{form.password}}
-        <!-- <input
+            </div>
+            <div class="input-container">
+              <p>Password :</p>
+              {{form.password}}
+              <!-- <input
               id="password"
               name="password"
               placeholder="Enter Password"
               required
               type="password"
             /> -->
-      </div>
-      {% if error %}
-      <div class="error-message">{{error}}</div>
-      {% endif %}
-      <div>
-        <br />
-        <button class="btn-register" type="submit">Submit</button>
+            </div>
+            {% if error %}
+            <div class="error-message">{{error}}</div>
+            {% endif %}
+            <div>
+              <button class="btn-register" type="submit">Submit</button>
+            </div>
+          </div>
+        </form>
+        <p>Already have an account? <a href="/login">Log in</a></p>
       </div>
     </div>
-  </form>
-</div>
-
-{% endblock %}
-
-<!-- </body>
-</html> -->
+  </body>
+</html>

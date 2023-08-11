@@ -1,57 +1,63 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz App - Login</title>
-
+    <title>Document</title>
     <link rel="stylesheet" href="../static/styles.css" />
   </head>
-  <body> -->
-
-{% extends 'base.html' %} {% load static %}
-<!--  -->
-
-{% block css_files %}
-<link rel="stylesheet" href="../static/styles.css" />
-{%endblock %}
-
-<!--  -->
-{% block page_title %} Quiz App - Login {% endblock %}
-
-<!--  -->
-
-{% block content %}
-<div class="main-container">
-  <form method="POST" action="/login">
-    {%csrf_token%}
-    <div>
-      <p>Enter Login Details</p>
-      <div class="input-container">
-        <p>Username :</p>
-        {{form.username}}
+  <body>
+    <div class="main-container">
+      <div class="img-container">
+        <img src="../static/media/img.png" alt="login" />
       </div>
-      <!-- <div class="input-container">
+      <div class="form-container">
+        <img class="logo" src="../static/media/logo.png" alt="logo" />
+        <form method="POST" action="/login">
+          {%csrf_token%}
+          <div>
+            <h2 class="login-heading">Login to DriveTest</h2>
+            <p class="login-desc">
+              Engage your intellect and have fun with our interactive quiz app
+            </p>
+            <div class="input-container">
+              <p>Username :</p>
+              {{form.username}}
+            </div>
+            <!-- <div class="input-container">
             <p>Name :</p>
             {{form.name}}
           </div> -->
-      <div class="input-container">
-        <p>Password :</p>
-        {{form.password}}
-      </div>
-      {% if error %}
-      <div class="error-message">{{error}}</div>
-      {% endif %}
-      <div>
-        <br />
-        <button class="btn-login" type="submit">Login</button>
+            <div class="input-container">
+              <p>Password :</p>
+              {{form.password}}
+            </div>
+            {% if error %}
+            <div class="error-message">{{error}}</div>
+            {% endif %}
+            <div>
+              <button class="btn-login" type="submit">Login</button>
+            </div>
+          </div>
+        </form>
+
+        <button class="social-login">
+          <img
+            class="social-icon"
+            src="../static/media/google.png"
+            alt="Google"
+          />&nbsp;&nbsp;&nbsp;Login with Google
+        </button>
+        <button class="social-login">
+          <img
+            class="social-icon"
+            src="../static/media/fb.png"
+            alt="Fb"
+          />&nbsp;&nbsp;Login with Facebook
+        </button>
+
+        <p>New User? <a href="/register">Register here</a></p>
       </div>
     </div>
-  </form>
-
-  <p>New User? <a href="/register">Register here</a></p>
-</div>
-
-{% endblock %}
-<!-- </body>
-</html> -->
+  </body>
+</html>
