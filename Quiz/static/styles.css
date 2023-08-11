@@ -131,23 +131,6 @@ h3 {
   object-fit: contain;
 }
 
-.percentage {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.try-again-link {
-  margin-bottom: 30px;
-}
-
-.try-again-link a {
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 1000px;
-  color: #333;
-  background-color: #ffecd1;
-}
-
 .btn-primary {
   padding: 10px 20px;
   text-decoration: none;
@@ -164,6 +147,52 @@ h3 {
 /* *******************QUIZ RESULT**************** */
 /* ********************************************** */
 .result-container {
-  margin: 50px auto;
+  margin: 70px auto;
+  height: 60vh;
+  width: 60%;
+  padding: 90px 90px;
   text-align: center;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.result-img-div {
+  overflow: hidden;
+}
+
+.result-img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.result-container h1 {
+  font-size: 60px;
+}
+
+.score {
+  font-size: 24px;
+}
+
+.percentage {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 50px;
+}
+
+.try-again-link {
+  margin-bottom: 30px;
+}
+
+.try-again-link a {
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 1000px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: red;
 }
