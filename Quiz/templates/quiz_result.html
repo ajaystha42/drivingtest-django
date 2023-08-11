@@ -25,7 +25,8 @@
   <p class="percentage">{{percentage}} %</p>
   {% if user_score <= 2 %}
   <p class="mark-message try-again-link">
-    <a href="quiz/?category={{category_name}}">Try again!</a>
+    <p>Please Try Again!</p>
+    <a href="quiz/?category={{category_name}}">Try again</a>
   </p>
   {% elif user_score == 3 %}
   <p class="mark-message">Good job!</p>
