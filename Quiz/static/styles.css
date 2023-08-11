@@ -4,6 +4,7 @@
   margin: 25px 0;
   padding-left: 300px;
 } */
+@import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -48,8 +49,13 @@ h3 {
 }
 
 .logo {
-  height: 40px;
-  object-fit: contain;
+  /* height: 40px;
+  object-fit: contain; */
+  font-family: "Quintessential", cursive;
+  text-align: center;
+  color: #04aa6d;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .form-container {
@@ -171,6 +177,7 @@ h3 {
 
 .result-container h1 {
   font-size: 60px;
+  color: #04aa6d;
 }
 
 .score {
@@ -178,9 +185,9 @@ h3 {
 }
 
 .percentage {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 50px;
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 30px;
 }
 
 .try-again-link {
@@ -195,4 +202,10 @@ h3 {
   font-size: 18px;
   font-weight: 600;
   background-color: red;
+}
+
+.try-again-msg {
+  font-size: 30px;
+  margin-bottom: 30px;
+  color: red;
 }

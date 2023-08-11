@@ -28,9 +28,9 @@
     <br />
     <p class="percentage">{{percentage}} %</p>
     {% if user_score <= 2 %}
-    <p>Please Try Again!!</p>
+    <p class="try-again-msg">Please Try Again!!</p>
     <p class="mark-message try-again-link">
-      <a href="quiz/?category={{category_name}}">Try again</a>
+      <a href="quiz/?category={{category_name}}">Re-attempt Quiz</a>
     </p>
     {% elif user_score == 3 %}
     <p class="mark-message">Good job!</p>
@@ -40,7 +40,9 @@
     <p class="mark-message">You are a genius!</p>
     {% endif %}
 
-    <a href="all-quiz-results/" class="btn-primary">View previous results</a>
+    <a href="all-quiz-results/" class="btn-primary" style="font-size: 20px"
+      >View previous results</a
+    >
   </div>
 </div>
 
