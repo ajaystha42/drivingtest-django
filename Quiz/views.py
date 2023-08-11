@@ -92,9 +92,7 @@ def register(request):
             #     else:
             messages.error(
                 request, 'Error Occured. Please try again.')
-    return render(request, 'register.html', {'form': form,
-                                             #  'user': None
-                                             })
+    return render(request, 'register.html', {'form': form,})
 
 
 @login_required(login_url="/login")
@@ -116,25 +114,28 @@ def quiz(request):
 @login_required(login_url="/login")
 def get_quiz(request):
     question_objs = (Question.objects.all())
-    category_name = request.GET.get('category')
-    if request.GET.get('category'):
-        question_objs = question_objs.filter(
-            category__category_name__icontains=request.GET.get('category'))
+    try:
+        if request.GET.get('category'):
+            question_objs = question_objs.filter(
+                category__category_name__icontains=request.GET.get('category'))
 
-    question_objs = list(question_objs)
-
-    data = []
-    random.shuffle(question_objs)
-    for question_obj in question_objs:
-        data.append({
-            "id": question_obj.id,
-            "category": question_obj.category.category_name,
-            "question": question_obj.question,
-            "marks": question_obj.marks,
-            "answers": question_obj.get_answer()
-        })
-
-    return random.sample(data, 5)
+        question_objs = list(question_objs)
+        data = []
+        random.shuffle(question_objs)
+        for question_obj in question_objs:
+            data.append({
+                "id": question_obj.id,
+                "category": question_obj.category.category_name,
+                "question": question_obj.question,
+                "marks": question_obj.marks,
+                "answers": question_obj.get_answer()
+            })
+        if len(question_objs)>= 5:
+            return random.sample(data, 5)
+        else:
+            return random.sample(data, len(question_objs))
+    except ValueError:
+        return render(request, 'quiz.html')
 
 
 @login_required(login_url="/login")
@@ -142,20 +143,22 @@ def all_quiz_results_view(request):
     quiz_results = QuizResult.objects.filter(
         user__username__icontains=request.user)
     highest = lowest = total_score = count = 0
-    for quiz_result in quiz_results:
-        score = quiz_result.score
-        if highest < score:
-            highest = score
-        if lowest > score:
-            lowest = score
-        total_score += score
-        count += 1
-    average = total_score / count
+    try:
+        for quiz_result in quiz_results:
+            score = quiz_result.score
+            if highest < score:
+                highest = score
+            if lowest > score:
+                lowest = score
+            total_score += score
+            count += 1
+        average = total_score / count
 
-    context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
-               'average': round(float(average), 2)}
-    return render(request, 'all_quiz_results_template.html', context)
-
+        context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
+                   'average': round(float(average), 2)}
+        return render(request, 'all_quiz_results_template.html', context)
+    except ZeroDivisionError:
+        return render(request,'all_quiz_results_template.html')
 
 @login_required(login_url="/login")
 def result(request):
