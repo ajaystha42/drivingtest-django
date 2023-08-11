@@ -44,21 +44,24 @@
   <body>
     <header>
       <nav class="navigation">
-        <img
-          class="header-logo"
-          src="../static/media/logo.png"
-          alt="DriveTest"
-        />
-        <h3><a href="/"> Welcome to DriveTest </a></h3>
+        <div class="nav-title">
+          <img
+            class="header-logo"
+            src="../static/media/logo.png"
+            alt="DriveTest"
+          />
+          <h3><a href="/"> Welcome to DriveTest </a></h3>
+        </div>
         <ul class="nav-links">
           {% if user %}
           <div class="login-div">
             <li>
-              <a href="/logoutUser">
-                <button class="logout-btn">Logout</button>
+              <a class="logout-btn" href="/logoutUser"
+                >Logout
+                <!-- <button class="logout-btn">Logout</button> -->
               </a>
             </li>
-            <li><a class="welcome-btn" href="user">Hi, {{user}} </a></li>
+            <li><a class="welcome-btn" href="#">Hi, {{user}} </a></li>
           </div>
           {% else %}
           <li><a href="/">Log in</a></li>
