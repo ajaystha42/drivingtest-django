@@ -38,7 +38,9 @@
           {% if user %}
           <div class="login-div">
             <li>
-              <button class="logout-btn" onclick="logout()">Logout</button>
+              <a href="/logoutUser">
+                <button class="logout-btn">Logout</button>
+              </a>
             </li>
             <li><a class="welcome-btn" href="user">Welcome, {{user}} </a></li>
           </div>

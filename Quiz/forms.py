@@ -26,26 +26,31 @@ class UserRegistrationForm(forms.ModelForm):
             attrs={'placeholder': 'Enter Password'})
 
 
-class UserLoginForm(forms.ModelForm):
+class UserLoginForm(forms.Form):
 
     email = forms.CharField(widget=forms.HiddenInput(), required=False)
-
-    class Meta:
-        model = User
-        fields = (
-            'username',
-            'email',
-            'password'
-        )
-        exclude = ("email",)
-        widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Enter Username', 'required': 'True'}),
-            'email': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
-            'password': forms.TextInput(attrs={'placeholder': 'Enter Password', 'required': 'True'}),
-        }
+    username = forms.CharField(label='Nombre de usuario')
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+    # class Meta:
+    #     model = User
+    #     fields = (
+    #         'username',
+    #         'email',
+    #         'password'
+    #     )
+    #     exclude = ("email",)
+    #     widgets = {
+    #         'username': forms.TextInput(attrs={'placeholder': 'Enter Username', 'required': 'True'}),
+    #         # 'email': forms.TextInput(attrs={'placeholder': 'Enter Name',  'required': 'False'}),
+    #         'password': forms.TextInput(attrs={'placeholder': 'Enter Password', 'required': 'True'}),
+    #     }
 
     def __init__(self, *args, **kwargs):
-        super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields['email'].required = False
+        super().__init__(*args, **kwargs)
+        # super(UserLoginForm, self).__init__(*args, **kwargs)
+        # self.fields['email'].required = False
+
+        self.fields['username'].widget.attrs.update(
+            {'class': 'form-email', 'placeholder': 'Enter Username'})
         self.fields['password'].widget = PasswordInput(
             attrs={'placeholder': 'Enter Password'})

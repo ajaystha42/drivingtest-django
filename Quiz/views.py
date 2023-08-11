@@ -10,35 +10,29 @@ from .models import *
 from Quiz.forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 
 
-def login(request):
+def loginUser(request):
     # form = UserLoginForm()
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
-        print('login form data  ', form)
         try:
             if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
-                print(username)
-                print(password)
                 user = authenticate(username=username, password=password)
-
                 if user:
+                    login(request, user)
                     response = HttpResponseRedirect(reverse('index'))
-                    response.set_cookie('user', user.username)
+                    response.set_cookie('user', user)
                     return response
-
-                # Authentication - Setting Userinfo to cookie
-                # remove this
-                # user = User.objects.get(
-                #     username=username, password=password)
-                # response = HttpResponseRedirect(reverse('index'))
-                # response.set_cookie('user', user.username)
-                return response
+                messages.error(request, 'Check your Credentials again')
+                return render(request, 'login.html', {
+                    'error': "render errro",
+                    'form': form})
             else:
-                # messages.error()
+                messages.error(request, 'form is not valid')
                 return render(request, 'login.html', {
                     'error': "form is invalid!",
                     'form': form})
@@ -47,7 +41,6 @@ def login(request):
                 'error': "Invalid Credentials. Try again!",
                 'form': form
             })
-
     else:
         form = UserLoginForm()
         try:
@@ -57,6 +50,10 @@ def login(request):
         except KeyError:
             return render(request, 'login.html', {'form': form, 'user': None})
 
+
+def logoutUser(request):
+    logout(request)
+    return redirect('/login')
 
 # def register(request):
 #     form = UserRegistrationForm()
@@ -81,6 +78,7 @@ def login(request):
 #                 pass
 #
 #     return render(request, 'register.html', {'form': form, 'user': None})
+
 
 def register(request):
     form = UserRegistrationForm()
