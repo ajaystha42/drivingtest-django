@@ -9,7 +9,7 @@
 <!--  -->
 
 {% block css_files %}
-<!-- <link rel="stylesheet" href="../static/styles.css" /> -->
+<link rel="stylesheet" href="../static/quiz.css" />
 {%endblock %}
 
 <!--  -->
@@ -20,18 +20,51 @@
 {% block content %}
 <div class="all-results-container">
   <h1>All Quiz Results</h1>
-  <ul>
-    Highest: {{highest}}
-    Lowest: {{lowest}}
-    Average: {{average}}
+  <br>
+  <h5>
+    <p>
+      Highest Score: {{highest}} 
+    </p>
+    <p>
+      Lowest Score: {{lowest}} 
+    </p>
+    <p>
+      Average Score: {{average}}</h5>
+    </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Attempts</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for quiz_result in quiz_results %}
+      <!--  -->
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{quiz_result.category.category_name}}</td>
+        <td>{{ quiz_result.datetime }}</td>
+        <td>{{ quiz_result.score }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- <ul>
+   
     {% for quiz_result in quiz_results %}
+  
     <li>
       User: {{ quiz_result.user.username }}, Score: {{ quiz_result.score }},
-      Date: {{ quiz_result.datetime }}
-      Category :{{quiz_result.category.category_name}}
+      Date: {{ quiz_result.datetime }} Category
+      :{{quiz_result.category.category_name}}
     </li>
     {% endfor %}
-  </ul>
+  </ul> -->
 </div>
 
 {% endblock %}

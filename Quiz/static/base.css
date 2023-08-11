@@ -53,10 +53,17 @@ body {
 }
 
 .welcome-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   text-decoration: none;
-  background-color: #a98467;
+  font-size: 18px;
   padding: 12px 20px;
   color: #fff;
+}
+
+.user-icon {
+  font-size: 25px;
 }
 
 .login-div {
@@ -71,8 +78,9 @@ body {
   z-index: 9;
   text-decoration: none;
 
-  padding: 10px 40px !important;
-  margin-top: 35px !important;
+  padding: 15px 25px;
+  margin-top: 45px !important;
+  margin-left: 20px !important;
   border: none !important;
   border-radius: 5px !important;
   background-color: #fff !important;
@@ -80,8 +88,15 @@ body {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
 }
 
+.logout-btn p {
+  margin: 0;
+  padding: 0;
+}
+
 .login-div:hover .logout-btn {
-  display: inline-block;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 /* *****************FOOTER*************** */
