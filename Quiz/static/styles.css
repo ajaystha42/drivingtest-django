@@ -54,7 +54,7 @@ h3 {
 }
 
 .form-container {
-  padding: 40px 70px;
+  padding: 40px 60px;
 
   /* height: 100%; */
   display: flex;
@@ -86,7 +86,7 @@ h3 {
 .input-container input {
   padding: 10px;
   margin: 5px 0;
-  width: 100%;
+  width: 95%;
   height: 30px;
   border: none;
   border-radius: 5px;
