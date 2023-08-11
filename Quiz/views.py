@@ -77,12 +77,17 @@ def register(request):
             return redirect("/")
         else:
             existing_username = form.data['username']
-            if existing_username:
+            if User.objects.filter(username=existing_username).exists():
                 messages.error(
                     request, 'Username already exists. Please choose another username')
             else:
-                messages.error(
-                    request, 'Error Occured. Please try again.')
+                invalid_password = form.errors.as_data()['password']
+                if invalid_password:
+                    messages.error(
+                        request, 'Password must be at least 8 characters long and contain letters, symbols and numbers.')
+                else:
+                    messages.error(
+                        request, 'Error Occured. Please try again.')
     return render(request, 'register.html', {'form': form, 'user': None})
 
 

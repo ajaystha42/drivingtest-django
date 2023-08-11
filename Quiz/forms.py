@@ -1,6 +1,6 @@
+import re
 from django import forms
 from django.contrib.auth.models import User
-
 from django.forms import PasswordInput
 
 
@@ -15,7 +15,7 @@ class UserRegistrationForm(forms.ModelForm):
             'password'
         )
         widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Enter Username', }),
+            'username': forms.TextInput(attrs={'placeholder': 'Enter Username'}),
             'email': forms.TextInput(attrs={'placeholder': 'Enter Email', 'required': True, 'type': 'email'}),
         }
 
@@ -23,6 +23,17 @@ class UserRegistrationForm(forms.ModelForm):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
         self.fields['password'].widget = PasswordInput(
             attrs={'placeholder': 'Enter Password'})
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if password:
+            # pattern = r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'
+            pattern = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$#%^&*!~])[A-Za-z\d@$#%^&*!~]{8,}$'
+            if not re.match(pattern, password):
+                raise forms.ValidationError(
+                    "Password must be at least 8 characters long and contain letters, symbols and numbers."
+                )
+        return password
 
 
 class UserLoginForm(forms.Form):
@@ -34,6 +45,6 @@ class UserLoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
-            {'class': 'form-email', 'placeholder': 'Enter Username'},)
+            {'placeholder': 'Enter Username'})
         self.fields['password'].widget = PasswordInput(
             attrs={'placeholder': 'Enter Password'})
