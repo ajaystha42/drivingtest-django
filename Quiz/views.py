@@ -21,7 +21,7 @@ def loginUser(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                # next_url = request.GET.get('next')
+                # next_url = request.POST.get('next')
                 # print('NEXT URL    ', next_url)
                 # if next_url:
                 #     return HttpResponseRedirect(next_url)
@@ -37,8 +37,9 @@ def loginUser(request):
             print(form.error_class.as_data())
             messages.error(request, 'Error Occured. Please try again.')
             return render(request, 'login.html', {
-                'form': form,
-                'user': None})
+                'form': form
+                # 'user': None
+            })
     else:
         form = UserLoginForm()
         if request.user.is_authenticated:
@@ -74,20 +75,31 @@ def register(request):
             new_user = User.objects.create_user(
                 username=username, email=email, password=password)
             new_user.save()
+            # Directly login after successful register
+            login(request, new_user)
             return redirect("/")
         else:
-            existing_username = form.data['username']
-            if existing_username:
-                messages.error(
-                    request, 'Username already exists. Please choose another username')
-            else:
-                messages.error(
-                    request, 'Error Occured. Please try again.')
-    return render(request, 'register.html', {'form': form, 'user': None})
+            # print(form.errors.as_data())
+            # existing_username = form.data['username']
+            # if User.objects.filter(username=existing_username).exists():
+            #     messages.error(
+            #         request, 'Username already exists. Please choose another username')
+            # else:
+            #     invalid_password = form.errors.as_data()['password']
+            #     if invalid_password:
+            #         messages.error(
+            #             request, 'Password must be at least 8 characters long and contain letters, symbols and numbers.')
+            #     else:
+            messages.error(
+                request, 'Error Occured. Please try again.')
+    return render(request, 'register.html', {'form': form,
+                                             #  'user': None
+                                             })
 
 
 @login_required(login_url="/login")
 def index(request):
+
     context = {'categories': Category.objects.all(),
                'user': request.user.username}
     if request.GET.get('category'):
