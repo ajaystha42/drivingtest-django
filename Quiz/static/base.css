@@ -52,7 +52,7 @@ body {
   margin-bottom: 0;
 }
 
-.nav-links a {
+.welcome-btn {
   text-decoration: none;
   background-color: #a98467;
   padding: 12px 20px;
@@ -69,6 +69,7 @@ body {
   top: 8;
   right: 10;
   z-index: 9;
+  text-decoration: none;
 
   padding: 10px 40px !important;
   margin-top: 35px !important;

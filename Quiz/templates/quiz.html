@@ -30,11 +30,13 @@
   >
     {% csrf_token %}
     <div class="form-group">
-      <h2>Question</h2>
-      <br />
+      <h4>
+        Answer the questions after carefully reading them. For each question,
+        you may only choose one answer. Good luck.
+      </h4>
       {% for que in questions %}
       <div class="question-container">
-        <h3>{{que.question}}</h3>
+        <h3 class="question">{{que.question}}</h3>
         <ul class="options-list">
           {% for ans in que.answers %}
           <li class="option">
@@ -43,12 +45,11 @@
               id="{{ans.id}}"
               value="{{ans.id}}"
               name="question{{que.id}}"
+              required
             />
             <label for="{{ans.id}}"> {{ans.answer}} </label>
           </li>
-          <br />
           {% endfor %}
-          <br />
         </ul>
       </div>
       {% endfor %}
