@@ -24,18 +24,12 @@
               <p>Username :</p>
               {{form.username}}
             </div>
-            <!-- <div class="input-container">
-            <p>Name :</p>
-            {{form.name}}
-          </div> -->
             <div class="input-container">
               <p>Password :</p>
               {{form.password}}
             </div>
             {% for message in messages%}
-            <!-- {% if error %} -->
             <div class="error-message">{{message}}</div>
-            <!-- {% endif %} -->
             {%endfor %}
             <div>
               <button class="btn-login" type="submit">Login</button>
