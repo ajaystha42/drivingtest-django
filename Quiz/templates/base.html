@@ -44,6 +44,11 @@
   <body>
     <header>
       <nav class="navigation">
+        <img
+          class="header-logo"
+          src="../static/media/logo.png"
+          alt="DriveTest"
+        />
         <h3><a href="/"> Welcome to DriveTest </a></h3>
         <ul class="nav-links">
           {% if user %}
@@ -66,18 +71,21 @@
     {% block content %} {% endblock %}
 
     <footer>
-      <h2 class="footer-heading">DriveTest</h2>
+      <h2 class="footer-icons">
+        <ion-icon name="logo-facebook"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-linkedin"></ion-icon>
+      </h2>
       <div class="footer-links">
         <p>Home</p>
         <p>About</p>
         <p>Contact Us</p>
+      </div>
+      <div class="footer-links">
         <p>Privacy Policy</p>
         <p>Terms & Conditions</p>
       </div>
-      <!-- <div class="footer-links">
-        <p>Privacy Policy</p>
-        <p>Terms & Conditions</p>
-      </div> -->
       <p class="footer-text">Copyright &copy; 2023 All rights reserved!</p>
     </footer>
   </body>
