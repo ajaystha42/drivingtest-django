@@ -1,7 +1,5 @@
 from django.db import models
 import random
-from django.shortcuts import render
-import uuid
 from django.contrib.auth.models import User
 
 
