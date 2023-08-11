@@ -36,8 +36,12 @@
         <h3><a href="/"> Welcome to DriveTest </a></h3>
         <ul class="nav-links">
           {% if user %}
-          <li><a onclick="logout()" href="">Logout</a></li>
-          <li><a href="user">Welcome, {{user}} </a></li>
+          <div class="login-div">
+            <li>
+              <button class="logout-btn" onclick="logout()">Logout</button>
+            </li>
+            <li><a class="welcome-btn" href="user">Welcome, {{user}} </a></li>
+          </div>
           {% else %}
           <li><a href="/">Log in</a></li>
           <li><a href="/register">Sign up</a></li>
@@ -54,11 +58,13 @@
         <p>Home</p>
         <p>About</p>
         <p>Contact Us</p>
-      </div>
-      <div class="footer-links">
         <p>Privacy Policy</p>
         <p>Terms & Conditions</p>
       </div>
+      <!-- <div class="footer-links">
+        <p>Privacy Policy</p>
+        <p>Terms & Conditions</p>
+      </div> -->
       <p class="footer-text">Copyright &copy; 2023 All rights reserved!</p>
     </footer>
   </body>

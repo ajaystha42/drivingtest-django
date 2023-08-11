@@ -22,7 +22,12 @@ body {
   padding: 25px 60px;
   display: flex;
   justify-content: space-between;
-  background-color: #ffecd1;
+  background-color: #40916c;
+}
+
+.navigation h3 a {
+  text-decoration: none;
+  color: #333;
 }
 
 .nav-links {
@@ -36,6 +41,31 @@ body {
   padding: 12px 20px;
   border-radius: 1000px;
   color: #fff;
+}
+
+.login-div {
+  position: relative;
+}
+
+.logout-btn {
+  display: none;
+  position: absolute;
+  top: 10;
+  right: 10;
+  z-index: 9;
+
+  padding: 10px 40px;
+  margin-top: 35px;
+  margin-left: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.login-div:hover .logout-btn {
+  display: inline-block;
 }
 
 /* *****************FOOTER*************** */
@@ -56,7 +86,7 @@ footer h2 {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .footer-links p {

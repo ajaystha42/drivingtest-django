@@ -16,8 +16,8 @@ h2 {
   max-width: 600px;
   text-align: center;
 
-  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
-  border: 1px solid #ddd;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* border: 1px solid #ddd; */
   border-radius: 10px;
 }
 
@@ -35,7 +35,8 @@ h2 {
   height: 30px;
 }
 
-button {
+.btn-login,
+.btn-register {
   padding: 15px 40px;
   margin-bottom: 20px;
   border-radius: 100px;
