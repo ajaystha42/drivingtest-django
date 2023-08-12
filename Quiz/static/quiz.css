@@ -53,6 +53,17 @@
   background-color: #04aa6d;
   color: #fff;
 }
+.no_result_illustrator {
+  background: url(./media/nodata.svg) no-repeat;
+  width: 720px;
+  height: 245px;
+
+  position: absolute;
+
+  left: 31%;
+  top: 3%;
+  height: 755px;
+}
 
 /* ****************ALL QUIZ RESULTS************ */
 /* ******************************************** */

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@100;400&display=swap");
 
 * {
   margin: 0;
@@ -42,7 +43,7 @@ body {
   display: flex;
   list-style-type: none;
   gap: 3rem;
-  font-family: Roboto;
+  font-family: Poppins;
 }
 .navigation li {
   list-style: none;
@@ -233,7 +234,7 @@ select {
   cursor: pointer;
 }
 .nav-buttom {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 16pt;
   text-decoration: none;
   color: white;
