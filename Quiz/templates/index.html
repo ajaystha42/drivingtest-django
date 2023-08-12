@@ -27,7 +27,7 @@
 <!--  -->
 
 {% block css_files %}
-<link rel="stylesheet" href="../static/styles.css"/>
+<link rel="stylesheet" href="../static/styles.css" />
 {%endblock %}
 
 <!--  -->
@@ -36,14 +36,39 @@
 <!--  -->
 {% block content %}
 <div>
-    <a href="{% url 'all-quiz-results' %}" class="btn btn-primary">View All Quiz Results</a>
-    <!-- This is main page -->
-    <!-- <div>
+  <!-- This is main page -->
+  <!-- <div>
       <br />
       <button type="submit" onclick="logout()">Logout</button>
     </div> -->
 
-    <div class="container mt-5 pt-5">
+  <div class="image-container">
+    <div class="header">
+      <h1>Get your license <br />this autumn, 2023</h1>
+      <h3>Free resources to practice for G1 and G2</h3>
+    </div>
+    <div class="illustrator-left"></div>
+    <div class="illustrator-right"></div>
+    <div class="form-container"></div>
+    <div class="container-wrapper">
+      <div class="form-wrapper">
+        <form>
+          <label for="category">Category</label>
+          <select name="Category" class="category-form">
+            <option value="Choose">Choose</option>
+            {% for category in categories %}
+            <option value="{{category.category_name}}">
+              {{category.category_name}}
+            </option>
+            {% endfor %}
+          </select>
+        </form>
+        <button class="button">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="container mt-5 pt-5">
         <div class="col-md-6 mx-auto">
             <form>
                 <div class="form-group">
@@ -57,10 +82,10 @@
                         {% endfor %}
                     </select>
                 </div>
-                <button class="btn btn-danger mt-3">Submit</button>
+               
             </form>
         </div>
-    </div>
+    </div> -->
 </div>
 {% endblock %}
 
