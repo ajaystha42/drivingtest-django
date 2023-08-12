@@ -54,7 +54,7 @@
       <div class="form-wrapper">
         <form>
           <label for="category">Category</label>
-          <select name="Category" class="category-form">
+          <select name="category" class="category-form">
             <option value="Choose">Choose</option>
             {% for category in categories %}
             <option value="{{category.category_name}}">
@@ -63,7 +63,9 @@
             {% endfor %}
           </select>
         </form>
-        <button class="button">Submit</button>
+        <div class="button-class">
+          <button class="button">Submit</button>
+        </div>
       </div>
     </div>
   </div>
