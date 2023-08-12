@@ -274,11 +274,13 @@ footer h2 {
 }
 @media only screen and (max-width: 1350px) {
   .illustrator-right {
-    background-size: 540px 283px;
+    background-size: 364px 283px;
+    top: 26rem;
   }
   .illustrator-left {
-    background-size: 540px 283px;
-    right: -170px;
+    background-size: 346px 283px;
+    right: -373px;
+    top: 26rem;
   }
 }
 @media only screen and (max-width: 2350px) and (min-width: 1950px) {
