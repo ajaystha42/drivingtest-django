@@ -18,6 +18,7 @@
 <!--  -->
 
 {% block content %}
+  {% if quiz_results|length > 1 %}
 <div class="all-results-container">
   <h1>All Quiz Results</h1>
   <br>
@@ -66,7 +67,10 @@
     {% endfor %}
   </ul> -->
 </div>
+{% else %}
+<p>No result is available</p>
 
+{% endif %}
 {% endblock %}
 
 <!-- </html> -->
