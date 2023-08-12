@@ -150,6 +150,17 @@ h3 {
   margin-top: 10px;
 }
 
+.no_result_illustrator {
+  width: 720px;
+  height: 245px;
+  background: url(./media/nodata.png) no-repeat;
+  background-size: 720px 245px;
+  position: absolute;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+}
+
 /* *******************QUIZ RESULT**************** */
 /* ********************************************** */
 .result-container {
