@@ -108,6 +108,7 @@ def index(request):
 @login_required(login_url="/login")
 def quiz(request):
     questions = get_quiz(request)
+    print(questions)
     return render(request, 'quiz.html', {'questions': questions, 'user': request.user.username})
 
 
