@@ -39,12 +39,11 @@ def loginUser(request):
             return render(request, 'login.html', {
                 'form': form
             })
-    else:
-        form = UserLoginForm()
-        if request.user.is_authenticated:
-            return redirect('/index')
-        else:
-            return render(request, 'login.html', {'form': form, 'user': None})
+
+    form = UserLoginForm()
+    if request.user.is_authenticated:
+        return redirect('/index')
+    return render(request, 'login.html', {'form': form, 'user': None})
 
 
 def logoutUser(request):
