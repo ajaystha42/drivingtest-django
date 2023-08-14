@@ -61,9 +61,8 @@
   background: url(./media/nodata.svg) no-repeat;
   width: 720px;
   height: 245px;
-
+  z-index: -1000;
   position: absolute;
-
   left: 31%;
   top: 3%;
   height: 755px;
@@ -124,4 +123,35 @@ table tbody tr:last-of-type {
 table tbody tr.active-row {
   font-weight: bold;
   color: #009879;
+}
+@media only screen and (max-width: 1350px) {
+  .no_result_illustrator {
+    width: 643px;
+    left: 25%;
+  }
+}
+@media only screen and (max-width: 1800px) {
+  .no_result_illustrator {
+    width: 671px;
+    left: 30%;
+  }
+}
+@media only screen and (max-width: 1450px) and (min-width: 1250px) {
+  .no_result_illustrator {
+    width: 671px;
+    left: 25%;
+  }
+}
+@media only screen and (max-width: 1200px) and (min-width: 800px) {
+  .no_result_illustrator {
+    width: 671px;
+    left: 20%;
+  }
+}
+@media only screen and (max-width: 2600px) and (min-width: 1850px) {
+  .no_result_illustrator {
+    width: 666px;
+
+    left: 30%;
+  }
 }

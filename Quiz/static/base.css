@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@100;400&display=swap");
 
 * {
   margin: 0;
@@ -43,11 +42,14 @@ body {
   display: flex;
   list-style-type: none;
   gap: 3rem;
-  font-family: Poppins;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .navigation li {
+}
+.navigation li a {
   list-style: none;
   text-decoration: none;
+  color: white;
 }
 
 .illustrator-right {
@@ -274,12 +276,14 @@ footer h2 {
 }
 @media only screen and (max-width: 1350px) {
   .illustrator-right {
-    background-size: 364px 283px;
+    background-size: 410px 280px;
     top: 26rem;
+    left: -1rem;
   }
+
   .illustrator-left {
-    background-size: 346px 283px;
-    right: -373px;
+    background-size: 406px 272px;
+    right: -334px;
     top: 26rem;
   }
 }
@@ -296,5 +300,14 @@ footer h2 {
   .category-form {
     margin-top: 0.7rem;
     font-size: 16pt;
+  }
+}
+@media (max-width: 1800px) and (min-width: 1350px) {
+  .illustrator-right {
+    background-size: 486px 319px;
+  }
+  .illustrator-left {
+    background-size: 513px 309px;
+    right: -242px;
   }
 }
