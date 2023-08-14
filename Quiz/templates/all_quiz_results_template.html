@@ -17,21 +17,14 @@
 
 <!--  -->
 
-{% block content %}
-{% if quiz_results|length >= 1 %}
+{% block content %} {% if quiz_results|length >= 1 %}
 <div class="all-results-container">
   <h1>All Quiz Results</h1>
-  <br>
+  <br />
   <h5>
-    <p>
-      Highest Score: {{highest}} 
-    </p>
-    <p>
-      Lowest Score: {{lowest}} 
-    </p>
-    <p>
-      Average Score: {{average}}</h5>
-    </p>
+    <p>Highest Score: {{highest}}</p>
+    <p>Lowest Score: {{lowest}}</p>
+    <p>Average Score: {{average}}</p>
   </h5>
   <table>
     <thead>
@@ -70,8 +63,6 @@
 {% else %}
 <div class="no_result_illustrator"></div>
 
-
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}
 
 <!-- </html> -->
