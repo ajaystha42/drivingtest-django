@@ -197,3 +197,8 @@ def result(request):
                       {'user_score': user_score, 'current_datetime': current_date, 'user': request.user.username,
                        'percentage': percentage, 'category_name': category_instance.category_name})
     return redirect('quiz')
+
+
+def redirect_to_home(request):
+    return redirect('/')
+1  
