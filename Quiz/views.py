@@ -38,7 +38,6 @@ def loginUser(request):
             messages.error(request, 'Error Occured. Please try again.')
             return render(request, 'login.html', {
                 'form': form
-                # 'user': None
             })
     else:
         form = UserLoginForm()
@@ -92,7 +91,7 @@ def register(request):
             #     else:
             messages.error(
                 request, 'Error Occured. Please try again.')
-    return render(request, 'register.html', {'form': form,})
+    return render(request, 'register.html', {'form': form})
 
 
 @login_required(login_url="/login")
@@ -130,7 +129,7 @@ def get_quiz(request):
                 "marks": question_obj.marks,
                 "answers": question_obj.get_answer()
             })
-        if len(question_objs)>= 5:
+        if len(question_objs) >= 5:
             return random.sample(data, 5)
         else:
             return random.sample(data, len(question_objs))
@@ -140,10 +139,10 @@ def get_quiz(request):
 
 @login_required(login_url="/login")
 def all_quiz_results_view(request):
-    quiz_results = QuizResult.objects.filter(
-        user__username__icontains=request.user)
-    highest = lowest = total_score = count = 0
     try:
+        quiz_results = QuizResult.objects.filter(
+            user__username__icontains=request.user)
+        highest = lowest = total_score = count = 0
         for quiz_result in quiz_results:
             score = quiz_result.score
             if highest < score:
@@ -158,7 +157,9 @@ def all_quiz_results_view(request):
                    'average': round(float(average), 2)}
         return render(request, 'all_quiz_results_template.html', context)
     except ZeroDivisionError:
-        return render(request,'all_quiz_results_template.html')
+        print('division zero exception  ')
+        return render(request, 'all_quiz_results_template.html')
+
 
 @login_required(login_url="/login")
 def result(request):
