@@ -1,13 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-
-    <link rel="stylesheet" href="../static/quiz.css" />
-  </head>
-  <body> -->
-
 {% extends 'base.html' %} {% load static %}
 <!--  -->
 
@@ -62,43 +52,6 @@
 {% else %}
 <div class="no_result_illustrator"></div>
 {% endif %}
+<!--  -->
 
-<!-- <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("quizForm");
-    const submitButton = document.getElementById("submitButton");
-
-    submitButton.addEventListener("click", function (event) {
-      if (!validateForm()) {
-        event.preventDefault();
-      }
-    });
-
-    function validateForm() {
-      const questions = document.querySelectorAll(".question-container");
-
-      for (const question of questions) {
-        const options = question.querySelectorAll("input[type=radio]");
-        let isOptionSelected = false;
-
-        for (const option of options) {
-          if (option.checked) {
-            isOptionSelected = true;
-            break;
-          }
-        }
-
-        if (!isOptionSelected) {
-          alert("Please select all the answer.");
-          return false;
-        }
-      }
-
-      return true;
-    }
-  });
-</script> -->
 {% endblock %}
-
-<!-- </body>
-</html> -->

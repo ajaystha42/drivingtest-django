@@ -27,7 +27,6 @@ class UserRegistrationForm(forms.ModelForm):
     def clean_password(self):
         password = self.cleaned_data.get('password')
         if password:
-            # pattern = r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'
             pattern = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$#%^&*!~])[A-Za-z\d@$#%^&*!~]{8,}$'
             if not re.match(pattern, password):
                 raise forms.ValidationError(

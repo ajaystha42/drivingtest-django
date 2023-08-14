@@ -1,28 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <title>Quiz App</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
-    <script>
-      function deleteCookie(name) {
-        document.cookie =
-          name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      }
-
-      function logout() {
-        deleteCookie("user");
-        window.location.href = "/";
-      }
-    </script>
-  </head> -->
 {% extends 'base.html' %} {% load static %}
 <!--  -->
 
@@ -36,15 +11,9 @@
 <!--  -->
 {% block content %}
 <div>
-  <!-- This is main page -->
-  <!-- <div>
-      <br />
-      <button type="submit" onclick="logout()">Logout</button>
-    </div> -->
-
   <div class="image-container">
     <div class="header">
-      <h1 class="main-header">Get your license <br />this autumn, 2023</h1>
+      <h1 class="main-header">Get your license <br />this season, 2023</h1>
       <h3 class="sub-header">Feel free to practice for your driving test</h3>
     </div>
     <div class="illustrator-left"></div>
@@ -68,26 +37,5 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="container mt-5 pt-5">
-        <div class="col-md-6 mx-auto">
-            <form>
-                <div class="form-group">
-                    <label>Select Category</label>
-                    <select name="category" class="form-control">
-                        <option value="Choose">Choose</option>
-                        {% for category in categories %}
-                        <option value="{{category.category_name}}">
-                            {{category.category_name}}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
-               
-            </form>
-        </div>
-    </div> -->
 </div>
 {% endblock %}
-
-<!-- </html> -->

@@ -23,34 +23,11 @@
     {% block css_files %} {% endblock %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <title>Quiz App</title>
-    <!-- <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    /> -->
-    <script>
-      function deleteCookie(name) {
-        document.cookie =
-          name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      }
-
-      function logout() {
-        deleteCookie("user");
-        window.location.href = "/";
-      }
-    </script>
   </head>
   <body>
     <header>
       <nav class="navigation">
         <div class="nav-title">
-          <!-- <img
-            class="header-logo"
-            src="../static/media/logo.png"
-            alt="DriveTest"
-          />
-          <h3><a href="/"> Welcome to DriveTest </a></h3> -->
           <h2 class="logo-header">TrafficTutor</h2>
         </div>
         <div class="center-navigation">
@@ -58,7 +35,7 @@
             <li class="nav-buttom"><a href="/"> Home</a></li>
 
             <li class="nav-buttom">
-              <a href="all-quiz-results/">My Results</a>
+              <a href="/score">My Results</a>
             </li>
           </ul>
         </div>
@@ -73,7 +50,6 @@
                   name="log-out-outline"
                 ></ion-icon>
                 <p>Logout</p>
-                <!-- <button class="logout-btn">Logout</button> -->
               </a>
             </li>
             <li>

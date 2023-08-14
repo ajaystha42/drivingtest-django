@@ -21,11 +21,6 @@ def loginUser(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                # next_url = request.POST.get('next')
-                # print('NEXT URL    ', next_url)
-                # if next_url:
-                #     return HttpResponseRedirect(next_url)
-                # else:
                 response = HttpResponseRedirect(reverse('index'))
                 return response
             messages.error(request, 'Check your Credentials again')
@@ -137,7 +132,7 @@ def get_quiz(request):
 
 
 @login_required(login_url="/login")
-def all_quiz_results_view(request):
+def score(request):
     try:
         quiz_results = QuizResult.objects.filter(
             user__username__icontains=request.user)
@@ -154,10 +149,10 @@ def all_quiz_results_view(request):
 
         context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
                    'average': round(float(average), 2)}
-        return render(request, 'all_quiz_results_template.html', context)
+        return render(request, 'score.html', context)
     except ZeroDivisionError:
         print('division zero exception  ')
-        return render(request, 'all_quiz_results_template.html')
+        return render(request, 'score.html')
 
 
 @login_required(login_url="/login")
@@ -201,4 +196,3 @@ def result(request):
 
 def redirect_to_home(request):
     return redirect('/')
-1  
