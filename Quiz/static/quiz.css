@@ -57,9 +57,8 @@
   background: url(./media/nodata.svg) no-repeat;
   width: 720px;
   height: 245px;
-
+  z-index: -1000;
   position: absolute;
-
   left: 31%;
   top: 3%;
   height: 755px;
