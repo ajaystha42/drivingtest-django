@@ -141,19 +141,46 @@ def score(request):
     try:
         quiz_results = QuizResult.objects.filter(
             user__username__icontains=request.user)
-        highest = lowest = total_score = count = 0
-        for quiz_result in quiz_results:
-            score = quiz_result.score
-            if highest < score:
-                highest = score
-            if lowest > score:
-                lowest = score
-            total_score += score
-            count += 1
-        average = total_score / count
+        obj = {}
+        for el in quiz_results:
+            category = el.category
 
-        context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
-                   'average': round(float(average), 2)}
+            if category in obj:
+                obj[category].append(el)
+            else:
+                obj[category] = [el]
+
+        # calculating scores by category
+        scores = list()
+        for el in obj.items():
+            key, val = el
+            highest = total_score = 0
+            lowest = val[0].score
+            count = len(val)
+            for v in val:
+                if highest < v.score:
+                    highest = v.score
+                if lowest > v.score:
+                    lowest = v.score
+                total_score += v.score
+            scores.append({'category': key, 'total_score': total_score,
+                           'count': count, 'highest': highest, 'lowest': lowest, 'average': round(float(total_score / count), 2)})
+
+        # highest = lowest = total_score = count = 0
+        # for quiz_result in quiz_results:
+        #     score = quiz_result.score
+        #     if highest < score:
+        #         highest = score
+        #     if lowest > score:
+        #         lowest = score
+        #     total_score += score
+        #     count += 1
+        # average = total_score / count
+
+        # context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
+        #            'average': round(float(average), 2)}
+        context = {'user': request.user.username,
+                   'quiz_results': quiz_results, 'scores': scores}
         return render(request, 'score.html', context)
     except ZeroDivisionError:
         return render(request, 'score.html')

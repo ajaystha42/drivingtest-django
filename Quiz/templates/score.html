@@ -15,9 +15,21 @@
   <h1>All Quiz Results</h1>
   <br />
   <h5>
-    <p>Highest Score: {{highest}}</p>
-    <p>Lowest Score: {{lowest}}</p>
-    <p>Average Score: {{average}}</p>
+    <p>Highest Score:</p>
+    {% for score in scores %}
+    <p>{{score.category}}</p>
+    <p>{{score.highest}}</p>
+    {% endfor %}
+    <p>Lowest Score:</p>
+    {% for score in scores %}
+    <p>{{score.category}}</p>
+    <p>{{score.lowest}}</p>
+    {% endfor %}
+    <p>Average Score:</p>
+    {% for score in scores %}
+    <p>{{score.category}}</p>
+    <p>{{score.average}}</p>
+    {% endfor %}
   </h5>
   <table>
     <thead>
