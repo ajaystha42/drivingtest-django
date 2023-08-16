@@ -47,9 +47,8 @@ def logoutUser(request):
 
 
 def register(request):
-    form = UserRegistrationForm()
     if request.user.is_authenticated:
-        return redirect('/index')
+        return redirect('/')
 
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -70,21 +69,23 @@ def register(request):
             new_user.save()
             # Directly login after successful register
             login(request, new_user)
-            return redirect("/")
+            return redirect('/')
         else:
-            # print(form.errors.as_data())
-            # existing_username = form.data['username']
-            # if User.objects.filter(username=existing_username).exists():
-            #     messages.error(
-            #         request, 'Username already exists. Please choose another username')
-            # else:
-            #     invalid_password = form.errors.as_data()['password']
-            #     if invalid_password:
-            #         messages.error(
-            #             request, 'Password must be at least 8 characters long and contain letters, symbols and numbers.')
-            #     else:
-            messages.error(
-                request, 'Error Occured. Please try again.')
+            print(form.errors.as_data())
+            if 'password' in form.errors:
+                messages.error(
+                    request, 'Password must be at least 8 characters long and contain letters, symbols and numbers.')
+            elif 'username' in form.errors:
+                messages.error(
+                    request, 'Username already exists. Please choose another username.')
+            elif 'email' in form.errors:
+                messages.error(
+                    request, 'Invalid Email. Please try again.')
+            else:
+                messages.error(
+                    request, 'Error Occured. Please try again.')
+    else:
+        form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
 
 
