@@ -23,13 +23,12 @@ def loginUser(request):
                 login(request, user)
                 response = HttpResponseRedirect(reverse('index'))
                 return response
-            messages.error(request, 'Check your Credentials again')
+            messages.error(request, 'Invalid Credentials. Please try again.')
             return render(request, 'login.html', {
                 'form': form,
                 'user': None
             })
         else:
-            print(form.error_class.as_data())
             messages.error(request, 'Error Occured. Please try again.')
             return render(request, 'login.html', {
                 'form': form
@@ -37,7 +36,7 @@ def loginUser(request):
 
     form = UserLoginForm()
     if request.user.is_authenticated:
-        return redirect('/index')
+        return redirect('/')
     return render(request, 'login.html', {'form': form, 'user': None})
 
 
@@ -71,7 +70,6 @@ def register(request):
             login(request, new_user)
             return redirect('/')
         else:
-            print(form.errors.as_data())
             if 'password' in form.errors:
                 messages.error(
                     request, 'Password must be at least 8 characters long and contain letters, symbols and numbers.')
@@ -152,7 +150,6 @@ def score(request):
                    'average': round(float(average), 2)}
         return render(request, 'score.html', context)
     except ZeroDivisionError:
-        print('division zero exception  ')
         return render(request, 'score.html')
 
 
@@ -164,25 +161,25 @@ def result(request):
 
         for question_id, selected_choice_id in user_answers.items():
             if question_id.startswith('question'):
+                # try:
+                question = Question.objects.get(
+                    pk=int(question_id[8:]))
                 try:
-                    question = Question.objects.get(
-                        pk=int(question_id[8:]))
-                    try:
-                        category_identifier = question.category.category_name
-                        category_instance = Category.objects.get(
-                            category_name=category_identifier)
-                        user12 = User.objects.get(
-                            username=request.user)
-                    except (Category.DoesNotExist or User.DoesNotExist):
-                        return redirect('/')
+                    category_identifier = question.category.category_name
+                    category_instance = Category.objects.get(
+                        category_name=category_identifier)
+                    user12 = User.objects.get(
+                        username=request.user)
+                except (Category.DoesNotExist or User.DoesNotExist):
+                    return redirect('/')
 
-                    selected_choice = Answer.objects.get(
-                        pk=int(selected_choice_id))
-                    if selected_choice.is_correct:
-                        user_score += 1
-                except Answer.DoesNotExist:
-                    print(
-                        f"Answer matching query does not exist for question ID {question_id[8:]}")
+                selected_choice = Answer.objects.get(
+                    pk=int(selected_choice_id))
+                if selected_choice.is_correct:
+                    user_score += 1
+                # except Answer.DoesNotExist:
+                #     print(
+                #         f"Answer matching query does not exist for question ID {question_id[8:]}")
         current_date = datetime.now()
         # Create a new quiz result
         quiz_result = QuizResult(
