@@ -21,6 +21,10 @@ def loginUser(request):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
+                # Redirect to next page if user requested
+                next_url = request.POST.get('next', '/')
+                if next_url:
+                    return redirect(next_url)
                 response = HttpResponseRedirect(reverse('index'))
                 return response
             messages.error(request, 'Invalid Credentials. Please try again.')
@@ -107,9 +111,11 @@ def quiz(request):
 def get_quiz(request):
     question_objs = (Question.objects.all())
     try:
-        if request.GET.get('category'):
-            question_objs = question_objs.filter(
-                category__category_name__icontains=request.GET.get('category'))
+        category = request.GET.get('category')
+        if not category:
+            return redirect('/')
+        question_objs = question_objs.filter(
+            category__category_name__icontains=request.GET.get('category'))
 
         question_objs = list(question_objs)
         data = []
