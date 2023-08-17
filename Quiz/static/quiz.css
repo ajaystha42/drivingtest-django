@@ -68,6 +68,34 @@
   top: 3%;
   height: 755px;
 }
+.card-result {
+  display: flex;
+  gap: 3rem;
+  justify-content: space-between;
+  padding: 2rem 0rem;
+}
+.card-content {
+  display: flex;
+
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+.result-container {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 12rem;
+  padding: 2rem 4rem;
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+
+  width: 100%;
+}
+.result-container h3 {
+  padding-bottom: 0.8rem;
+}
 
 /* ****************ALL QUIZ RESULTS************ */
 /* ******************************************** */
