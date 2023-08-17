@@ -1,3 +1,11 @@
+/*
+Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa
+*/
+
 @import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
 
 body {
@@ -109,6 +117,7 @@ h3 {
   cursor: pointer;
 }
 
+/* Social Login button */
 .social-login {
   display: flex !important;
   justify-content: center;
@@ -209,6 +218,7 @@ h3 {
   background-color: red;
 }
 
+/* message text design */
 .try-again-msg {
   font-size: 30px;
   margin-bottom: 30px;
@@ -220,12 +230,14 @@ h3 {
   font-size: 20px;
 }
 
+/* for screen less than 2350px width */
 @media only screen and (max-width: 2350px) {
   .main-container {
     height: 100%;
   }
 }
 
+/* for screen less than 3350px width */
 @media only screen and (max-width: 2350px) {
   .main-container {
     height: 100%;

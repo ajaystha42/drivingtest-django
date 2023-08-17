@@ -1,3 +1,10 @@
+<!-- Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa-->
+
+<!-- This is the total score page -->
 {% extends 'base.html' %} {% load static %}
 <!--  -->
 
@@ -5,16 +12,17 @@
 <link rel="stylesheet" href="../static/quiz.css" />
 {%endblock %}
 
-<!--  -->
+<!-- Title -->
 {% block page_title %} Quiz App - All Quiz Results {% endblock %}
 
-<!--  -->
+<!-- Main content -->
 
 {% block content %} {% if quiz_results|length >= 1 %}
 <div class="all-results-container">
   <h1>All Quiz Results</h1>
   <br />
 
+  <!-- Loop between the scores to display highest, lowest and average score based on the category -->
   <div class="card-result">
     <div class="result-container">
       <h3>Highest Score:</h3>
@@ -62,6 +70,8 @@
     <p>{{score.average}}</p>
     {% endfor %}
   </h5> -->
+
+  <!-- Display all previous results in a table -->
   <table>
     <thead>
       <tr>
@@ -72,6 +82,7 @@
       </tr>
     </thead>
     <tbody>
+      <!-- Loop between the result and display each result in each row -->
       {% for quiz_result in quiz_results %}
       <!--  -->
       <tr>

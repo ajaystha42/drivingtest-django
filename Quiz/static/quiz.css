@@ -1,3 +1,11 @@
+/*
+Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa
+*/
+
 .main-container {
   padding: 60px 20px;
   padding-top: 20px;
@@ -115,6 +123,7 @@ h5 {
   justify-content: space-between;
 }
 
+/* All results Table design */
 table,
 th,
 td {
@@ -155,6 +164,7 @@ table tbody tr.active-row {
   color: #009879;
 }
 
+/* for screen less than 1350px width */
 @media only screen and (max-width: 1350px) {
   .no_result_illustrator {
     width: 643px;
@@ -162,6 +172,7 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen less than 1800px width */
 @media only screen and (max-width: 1800px) {
   .no_result_illustrator {
     width: 671px;
@@ -169,6 +180,7 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen between 1250px and 1450px width */
 @media only screen and (max-width: 1450px) and (min-width: 1250px) {
   .no_result_illustrator {
     width: 671px;
@@ -176,6 +188,7 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen between 800px and 1200px width */
 @media only screen and (max-width: 1200px) and (min-width: 800px) {
   .no_result_illustrator {
     width: 671px;
@@ -183,6 +196,7 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen between 1850px and 2600px width */
 @media only screen and (max-width: 2600px) and (min-width: 1850px) {
   .no_result_illustrator {
     width: 666px;
