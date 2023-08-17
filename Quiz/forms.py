@@ -44,6 +44,7 @@ class UserRegistrationForm(forms.ModelForm):
         return password  # Custom password validation
 
 
+
 # Defining the form for user login
 class UserLoginForm(forms.Form):
     email = forms.CharField(widget=forms.HiddenInput(), required=False)  # hide the email field
