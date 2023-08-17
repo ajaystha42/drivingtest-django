@@ -1,3 +1,11 @@
+/*
+Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa
+*/
+
 @import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
 
 * {
@@ -289,6 +297,7 @@ footer h2 {
   cursor: pointer;
 }
 
+/* for screen less than 1400px width */
 @media only screen and (max-width: 1400px) {
   .illustrator-right {
     background-size: 591px 283px;
@@ -300,6 +309,7 @@ footer h2 {
   }
 }
 
+/* for screen less than 1350px width */
 @media only screen and (max-width: 1350px) {
   .illustrator-right {
     background-size: 410px 280px;
@@ -314,6 +324,7 @@ footer h2 {
   }
 }
 
+/* for screen between 1950px and 2350px width */
 @media only screen and (max-width: 2350px) and (min-width: 1950px) {
   .button {
     width: 100%;
@@ -332,6 +343,7 @@ footer h2 {
   }
 }
 
+/* for screen between 1350px and 1800px width */
 @media (max-width: 1800px) and (min-width: 1350px) {
   .illustrator-right {
     background-size: 486px 319px;

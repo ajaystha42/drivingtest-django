@@ -1,14 +1,22 @@
+<!-- Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa-->
+
+<!-- This is the homepage once the user logs in -->
 {% extends 'base.html' %} {% load static %}
 <!--  -->
 
+<!-- Importing css file -->
 {% block css_files %}
 <link rel="stylesheet" href="../static/styles.css" />
 {%endblock %}
 
-<!--  -->
+<!-- Title -->
 {% block page_title %} Quiz App - Home {% endblock %}
 
-<!--  -->
+<!-- Main body/content of the page -->
 {% block content %}
 <div>
   <div class="image-container">
@@ -21,6 +29,7 @@
     <div class="form-container"></div>
     <div class="container-wrapper">
       <div class="form-wrapper">
+        <!-- Dropdown that lets users select between the categories -->
         <form>
           <label for="category" class="category">Category</label>
           <select name="category" class="category-form">
