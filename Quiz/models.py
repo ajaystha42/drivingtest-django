@@ -1,8 +1,16 @@
+"""
+Author:
+Ajay Shrestha
+Gaurab Pokharel
+Nirajan Karki
+Sakar Thapa
+"""
 from django.db import models
 import random
 from django.contrib.auth.models import User
 
 
+# Model for category
 class Category(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
@@ -12,6 +20,7 @@ class Category(models.Model):
         return self.category_name
 
 
+# model for quiz questions
 class Question(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
@@ -24,6 +33,7 @@ class Question(models.Model):
         return self.question
 
     def get_answer(self):
+        # Retrieve shuffled answer options associated with the question
         answer_objs = list(Answer.objects.filter(question=self))
         random.shuffle(answer_objs)
         data = []
@@ -38,6 +48,7 @@ class Question(models.Model):
         return data
 
 
+# Model for answer options associated with questions
 class Answer(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now_add=True)
@@ -50,6 +61,7 @@ class Answer(models.Model):
         return self.answer
 
 
+# Model for storing the quiz result
 class QuizResult(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()
