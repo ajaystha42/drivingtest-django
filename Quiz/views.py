@@ -1,3 +1,10 @@
+"""
+Author:
+Ajay Shrestha
+Gaurab Pokharel
+Nirajan Karki
+Sakar Thapa
+"""
 import datetime
 from datetime import datetime
 from django.contrib import messages
@@ -12,6 +19,7 @@ from django.urls import reverse
 from Quiz.forms import UserRegistrationForm, UserLoginForm
 
 
+# method for logging in a user
 def loginUser(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
@@ -27,6 +35,7 @@ def loginUser(request):
                     return redirect(next_url)
                 response = HttpResponseRedirect(reverse('index'))
                 return response
+            # error message if the username or password is incorrect
             messages.error(request, 'Invalid Credentials. Please try again.')
             return render(request, 'login.html', {
                 'form': form,
@@ -44,11 +53,13 @@ def loginUser(request):
     return render(request, 'login.html', {'form': form, 'user': None})
 
 
+# method of logout user
 def logoutUser(request):
     logout(request)
     return redirect('/login')
 
 
+# Method for registration new user
 def register(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -74,6 +85,7 @@ def register(request):
             login(request, new_user)
             return redirect('/')
         else:
+            # defining error condition in the form
             if 'password' in form.errors:
                 messages.error(
                     request, 'Password must be at least 8 characters long and contain letters, symbols and numbers.')
@@ -91,9 +103,9 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 
+# Method for displaying the index page
 @login_required(login_url="/login")
 def index(request):
-
     context = {'categories': Category.objects.all(),
                'user': request.user.username}
     if request.GET.get('category'):
@@ -101,16 +113,20 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+# Method to start the quiz
 @login_required(login_url="/login")
 def quiz(request):
     questions = get_quiz(request)
     return render(request, 'quiz.html', {'questions': questions, 'user': request.user.username})
 
 
+# Method to fetch quiz questions
 @login_required(login_url="/login")
 def get_quiz(request):
+    # fetch all the objects
     question_objs = (Question.objects.all())
     try:
+        # fetch according to the category
         category = request.GET.get('category')
         if not category:
             return redirect('/')
@@ -119,6 +135,7 @@ def get_quiz(request):
 
         question_objs = list(question_objs)
         data = []
+        # shuffle the questions
         random.shuffle(question_objs)
         for question_obj in question_objs:
             data.append({
@@ -128,17 +145,21 @@ def get_quiz(request):
                 "marks": question_obj.marks,
                 "answers": question_obj.get_answer()
             })
+            # calculate the length of the number of question and display only 5 question
         if len(question_objs) >= 5:
             return random.sample(data, 5)
         else:
+            # display if the length is small than 5
             return random.sample(data, len(question_objs))
     except ValueError:
         return render(request, 'quiz.html')
 
 
+# Method to display the score
 @login_required(login_url="/login")
 def score(request):
     try:
+        # filter according to the user name
         quiz_results = QuizResult.objects.filter(
             user__username__icontains=request.user)
         obj = {}
@@ -164,7 +185,8 @@ def score(request):
                     lowest = v.score
                 total_score += v.score
             scores.append({'category': key, 'total_score': total_score,
-                           'count': count, 'highest': highest, 'lowest': lowest, 'average': round(float(total_score / count), 2)})
+                           'count': count, 'highest': highest, 'lowest': lowest,
+                           'average': round(float(total_score / count), 2)})
 
         # highest = lowest = total_score = count = 0
         # for quiz_result in quiz_results:
@@ -186,6 +208,7 @@ def score(request):
         return render(request, 'score.html')
 
 
+# Method for displaying quiz result
 @login_required(login_url="/login")
 def result(request):
     if request.method == 'POST':
@@ -224,6 +247,6 @@ def result(request):
                        'percentage': percentage, 'category_name': category_instance.category_name})
     return redirect('quiz')
 
-
+# Redirects all other URLs to the home page
 def redirect_to_home(request):
     return redirect('/')
