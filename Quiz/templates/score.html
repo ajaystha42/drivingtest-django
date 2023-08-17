@@ -14,7 +14,38 @@
 <div class="all-results-container">
   <h1>All Quiz Results</h1>
   <br />
-  <h5>
+
+  <div class="card-result">
+    <div class="result-container">
+      <h3>Highest Score:</h3>
+      {% for score in scores %}
+      <div class="card-content">
+        <strong>{{score.category}}</strong>
+        <p>{{score.highest}}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="result-container">
+      <h3>Average Score:</h3>
+      {% for score in scores %}
+      <div class="card-content">
+        <strong>{{score.category}}</strong>
+        <p>{{score.average}}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="result-container">
+      <h3>Lowest Score:</h3>
+      {% for score in scores %}
+      <div class="card-content">
+        <strong>{{score.category}}</strong>
+        <p>{{score.lowest}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- <h5>
     <p>Highest Score:</p>
     {% for score in scores %}
     <p>{{score.category}}</p>
@@ -30,7 +61,7 @@
     <p>{{score.category}}</p>
     <p>{{score.average}}</p>
     {% endfor %}
-  </h5>
+  </h5> -->
   <table>
     <thead>
       <tr>
