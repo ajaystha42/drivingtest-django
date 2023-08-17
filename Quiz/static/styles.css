@@ -117,6 +117,7 @@ h3 {
   cursor: pointer;
 }
 
+/* Social Login button */
 .social-login {
   display: flex !important;
   justify-content: center;
