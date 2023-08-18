@@ -1,3 +1,11 @@
+/*
+Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa
+*/
+
 .main-container {
   padding: 60px 20px;
   padding-top: 20px;
@@ -44,12 +52,10 @@
   font-size: 20px;
   font-weight: 600;
   width: 20%;
-
   border: 2px solid #04aa6d;
   border-radius: 1000px;
   background-color: #fff;
   color: #04aa6d;
-
   transition: all 0.3s;
 }
 
@@ -68,18 +74,20 @@
   top: 3%;
   height: 755px;
 }
+
 .card-result {
   display: flex;
   gap: 3rem;
   justify-content: space-between;
   padding: 2rem 0rem;
 }
+
 .card-content {
   display: flex;
-
   justify-content: space-between;
   padding-top: 1rem;
 }
+
 .result-container {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -90,9 +98,9 @@
   -moz-border-radius: 0.5rem;
   -ms-border-radius: 0.5rem;
   -o-border-radius: 0.5rem;
-
   width: 100%;
 }
+
 .result-container h3 {
   padding-bottom: 0.8rem;
 }
@@ -115,6 +123,7 @@ h5 {
   justify-content: space-between;
 }
 
+/* All results Table design */
 table,
 th,
 td {
@@ -155,6 +164,7 @@ table tbody tr.active-row {
   color: #009879;
 }
 
+/* for screen less than 1350px width */
 @media only screen and (max-width: 1350px) {
   .no_result_illustrator {
     width: 643px;
@@ -162,6 +172,7 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen less than 1800px width */
 @media only screen and (max-width: 1800px) {
   .no_result_illustrator {
     width: 671px;
@@ -169,6 +180,7 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen between 1250px and 1450px width */
 @media only screen and (max-width: 1450px) and (min-width: 1250px) {
   .no_result_illustrator {
     width: 671px;
@@ -176,6 +188,7 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen between 800px and 1200px width */
 @media only screen and (max-width: 1200px) and (min-width: 800px) {
   .no_result_illustrator {
     width: 671px;
@@ -183,10 +196,10 @@ table tbody tr.active-row {
   }
 }
 
+/* for screen between 1850px and 2600px width */
 @media only screen and (max-width: 2600px) and (min-width: 1850px) {
   .no_result_illustrator {
     width: 666px;
-
     left: 30%;
   }
 }

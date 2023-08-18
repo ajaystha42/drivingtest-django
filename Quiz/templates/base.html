@@ -1,3 +1,11 @@
+<!-- Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa-->
+
+<!-- This is the base HTML file -->
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -10,6 +18,7 @@
     <link rel="stylesheet" href="{% static "base.css" %}" />
 
     <!-- ION ICONS -->
+    <!-- Using ION ICONS for icons in the app -->
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -21,10 +30,12 @@
 
     <!--  -->
     {% block css_files %} {% endblock %}
+    <!-- Importing jquery CDN for additional functionality -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <title>Quiz App</title>
+    <title>TrafficTutor</title>
   </head>
   <body>
+    <!-- This is the navigation -->
     <header>
       <nav class="navigation">
         <div class="nav-title">
@@ -35,13 +46,11 @@
         <div class="center-navigation">
           <ul class="center-navigation">
             <li class="nav-buttom"><a href="/"> Home</a></li>
-
             <li class="nav-buttom">
               <a href="/score">My Results</a>
             </li>
           </ul>
         </div>
-
         <ul class="nav-links">
           {% if user %}
           <div class="login-div">
@@ -73,8 +82,10 @@
       </nav>
     </header>
 
+    <!-- ALl the content goes here -->
     {% block content %} {% endblock %}
 
+    <!-- This is the footer -->
     <footer>
       <h2 class="footer-icons">
         <ion-icon name="logo-facebook"></ion-icon>

@@ -1,3 +1,11 @@
+/*
+Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa
+*/
+
 @import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
 
 body {
@@ -31,12 +39,9 @@ h3 {
   /* padding: 50px 60px; */
   width: 60%;
   height: 75vh;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
-
   text-align: center;
-
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   /* border: 1px solid #ddd; */
   border-radius: 10px;
@@ -54,7 +59,6 @@ h3 {
 
 .form-container {
   padding: 8px 60px;
-
   /* height: 100%; */
   display: flex;
   flex-direction: column;
@@ -90,7 +94,6 @@ h3 {
   border: none;
   border-radius: 5px;
   font-size: 14px;
-
   background-color: #eee;
 }
 
@@ -101,7 +104,6 @@ h3 {
   margin-bottom: 20px;
   border-radius: 8px;
   font-size: 16px;
-
   width: 100%;
   border: none;
   color: #fff;
@@ -109,6 +111,7 @@ h3 {
   cursor: pointer;
 }
 
+/* Social Login button */
 .social-login {
   display: flex !important;
   justify-content: center;
@@ -163,10 +166,8 @@ h3 {
   width: 60%;
   padding: 90px 90px;
   text-align: center;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
-
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -209,6 +210,7 @@ h3 {
   background-color: red;
 }
 
+/* message text design */
 .try-again-msg {
   font-size: 30px;
   margin-bottom: 30px;
@@ -220,12 +222,14 @@ h3 {
   font-size: 20px;
 }
 
+/* for screen less than 2350px width */
 @media only screen and (max-width: 2350px) {
   .main-container {
     height: 100%;
   }
 }
 
+/* for screen less than 3350px width */
 @media only screen and (max-width: 2350px) {
   .main-container {
     height: 100%;

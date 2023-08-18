@@ -1,10 +1,17 @@
+/*
+Group Members:
+        Ajay Shrestha
+        Gaurab Pokhrel
+        Nirajan Karki
+        Sakar Thapa
+*/
+
 @import url("https://fonts.googleapis.com/css2?family=Quintessential&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
   list-style: none;
 }
 
@@ -12,7 +19,6 @@ body {
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -202,7 +208,6 @@ form {
   left: 0;
   display: grid;
   left: 0;
-
   padding: 1rem 1rem;
 }
 
@@ -247,9 +252,7 @@ select {
   margin-bottom: 20px;
   border-radius: 8px;
   font-size: 14px;
-
   height: 3rem;
-
   border: none;
   color: #fff;
   background-color: #04aa6d;
@@ -289,6 +292,7 @@ footer h2 {
   cursor: pointer;
 }
 
+/* for screen less than 1400px width */
 @media only screen and (max-width: 1400px) {
   .illustrator-right {
     background-size: 591px 283px;
@@ -300,6 +304,7 @@ footer h2 {
   }
 }
 
+/* for screen less than 1350px width */
 @media only screen and (max-width: 1350px) {
   .illustrator-right {
     background-size: 410px 280px;
@@ -314,6 +319,7 @@ footer h2 {
   }
 }
 
+/* for screen between 1950px and 2350px width */
 @media only screen and (max-width: 2350px) and (min-width: 1950px) {
   .button {
     width: 100%;
@@ -332,6 +338,7 @@ footer h2 {
   }
 }
 
+/* for screen between 1350px and 1800px width */
 @media (max-width: 1800px) and (min-width: 1350px) {
   .illustrator-right {
     background-size: 486px 319px;

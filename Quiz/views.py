@@ -48,6 +48,7 @@ def loginUser(request):
             })
 
     form = UserLoginForm()
+    # Checking if user is authenticated or not
     if request.user.is_authenticated:
         return redirect('/')
     return render(request, 'login.html', {'form': form, 'user': None})
@@ -61,6 +62,7 @@ def logoutUser(request):
 
 # Method for registration new user
 def register(request):
+    # Checking if user is authenticated or not
     if request.user.is_authenticated:
         return redirect('/')
 
@@ -104,7 +106,7 @@ def register(request):
 
 
 # Method for displaying the index page
-@login_required(login_url="/login")
+@login_required(login_url="/login")  # Middleware to authenticate user
 def index(request):
     context = {'categories': Category.objects.all(),
                'user': request.user.username}
@@ -114,14 +116,14 @@ def index(request):
 
 
 # Method to start the quiz
-@login_required(login_url="/login")
+@login_required(login_url="/login")  # Middleware to authenticate user
 def quiz(request):
     questions = get_quiz(request)
     return render(request, 'quiz.html', {'questions': questions, 'user': request.user.username})
 
 
 # Method to fetch quiz questions
-@login_required(login_url="/login")
+@login_required(login_url="/login")  # Middleware to authenticate user
 def get_quiz(request):
     # fetch all the objects
     question_objs = (Question.objects.all())
@@ -156,7 +158,7 @@ def get_quiz(request):
 
 
 # Method to display the score
-@login_required(login_url="/login")
+@login_required(login_url="/login")  # Middleware to authenticate user
 def score(request):
     try:
         # filter according to the user name
@@ -188,19 +190,6 @@ def score(request):
                            'count': count, 'highest': highest, 'lowest': lowest,
                            'average': round(float(total_score / count), 2)})
 
-        # highest = lowest = total_score = count = 0
-        # for quiz_result in quiz_results:
-        #     score = quiz_result.score
-        #     if highest < score:
-        #         highest = score
-        #     if lowest > score:
-        #         lowest = score
-        #     total_score += score
-        #     count += 1
-        # average = total_score / count
-
-        # context = {'user': request.user.username, 'quiz_results': quiz_results, 'highest': highest, 'lowest': lowest,
-        #            'average': round(float(average), 2)}
         context = {'user': request.user.username,
                    'quiz_results': quiz_results, 'scores': scores}
         return render(request, 'score.html', context)
@@ -209,7 +198,7 @@ def score(request):
 
 
 # Method for displaying quiz result
-@login_required(login_url="/login")
+@login_required(login_url="/login")  # Middleware to authenticate user
 def result(request):
     if request.method == 'POST':
         user_answers = request.POST.dict()
@@ -217,7 +206,6 @@ def result(request):
 
         for question_id, selected_choice_id in user_answers.items():
             if question_id.startswith('question'):
-                # try:
                 question = Question.objects.get(
                     pk=int(question_id[8:]))
                 try:
@@ -233,9 +221,6 @@ def result(request):
                     pk=int(selected_choice_id))
                 if selected_choice.is_correct:
                     user_score += 1
-                # except Answer.DoesNotExist:
-                #     print(
-                #         f"Answer matching query does not exist for question ID {question_id[8:]}")
         current_date = datetime.now()
         # Create a new quiz result
         quiz_result = QuizResult(
@@ -247,6 +232,6 @@ def result(request):
                        'percentage': percentage, 'category_name': category_instance.category_name})
     return redirect('quiz')
 
-# Redirects all other URLs to the home page
-def redirect_to_home(request):
+
+def redirect_to_home(request):  # Redirects all other URLs to the home page
     return redirect('/')
