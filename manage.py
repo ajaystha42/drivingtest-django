@@ -1,9 +1,18 @@
 #!/usr/bin/env python
+"""
+Author:
+Ajay Shrestha
+Gaurab Pokharel
+Nirajan Karki
+Sakar Thapa
+"""
 """Django's command-line utility for administrative tasks."""
+
+
+
+
 import os
 import sys
-
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DrivingTest.settings')
